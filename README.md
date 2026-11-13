@@ -1,39 +1,35 @@
-# Quran Reader
+# Yours Quran Reader
 
-Quran reader with IndoPak and Madani script, English and Urdu meaning, bookmarks,
-khatam plans, daily goals, reminders, an ayah-of-the-day story, and PDF export.
-It installs on phones as an app and works offline after the first visit.
+A Quran reader for phones: IndoPak and Madani script, English and Urdu meanings,
+word-by-word help, recitation by six qaris, ribbon bookmarks, a khatam planner,
+daily goals, Friday Al-Kahf reminders, and offline reading after the first visit.
 
-## Deploy on Vercel
+## Updating an existing Vercel site (GitHub)
+1. Open your repository on github.com and click **Add file → Upload files**.
+2. Drag in everything inside this folder (files and folders) and click **Commit changes**.
+   Files with the same names are replaced; new folders (data, fonts) are added.
+3. Vercel rebuilds automatically. Check **Deployments** in Vercel until it says **Ready**.
 
-### Option A: from the browser (no coding)
-1. Create a new repository on github.com and upload every file and folder in this zip.
-2. On vercel.com choose **Add New → Project**, pick the repository, and click **Deploy**.
-   Leave the framework preset as **Other**; no build command is needed.
-3. Optional, for the AI explanation in the daily story and PDF:
-   **Project → Settings → Environment Variables**, add `ANTHROPIC_API_KEY`
-   with a key from console.anthropic.com, then **Deployments → Redeploy**.
+## New deployment
+Import the repository at vercel.com (Add New → Project). No settings need changing;
+`vercel.json` already tells Vercel to run `node build.mjs` and publish `dist/`.
 
-### Option B: from a terminal
-    npx vercel            # first deploy, answer the setup questions
-    npx vercel env add ANTHROPIC_API_KEY
-    npx vercel --prod
+## Optional
+- `ANTHROPIC_API_KEY` (Vercel → Settings → Environment Variables): enables the optional
+  AI explanation in the daily story. It is off by default in the app and is not tafsir.
+- Link previews use your production address automatically (VERCEL_PROJECT_PRODUCTION_URL).
 
 ## Files
-- `index.html` – the whole app, including the Quran text and fonts
-- `api/explain.js` – server function for the English + Urdu explanation
-- `sw.js`, `manifest.webmanifest`, `icons/` – install-to-home-screen and offline support
-- `vercel.json` – caching rules
+- `index.html` – the app
+- `data/` – Quran text, translations, word-by-word data, page/juz/ruku tables
+- `fonts/` – DigitalKhatt IndoPak font
+- `sw.js`, `manifest.webmanifest`, `icons/`, `og.jpg` – install, offline and link previews
+- `api/explain.js` – optional AI explanation
+- `build.mjs`, `vercel.json`, `package.json` – deployment settings
 
-## Notes
-- Without `ANTHROPIC_API_KEY` everything works except the AI explanation;
-  the story and PDF then show the ayah, pronunciation and meaning only.
-- API use is billed to your Anthropic account. Each explanation is saved on the
-  reader's device, so an ayah is only requested once per device.
-- Optional: set `ANTHROPIC_MODEL` to choose a different Claude model.
-- Bookmarks, goals and plans are saved in each reader's browser.
-
-## Credits
-IndoPak text and font: DigitalKhatt IndoPak by Amine Anane, QUL / Tarteel Inc.
-Madani text: quranenc.com. English: Saheeh International.
-Urdu: Fateh Muhammad Jalandhari.
+## Sources
+IndoPak text and font: DigitalKhatt IndoPak (Amine Anane), QUL / Tarteel.
+Madani text: The Noble Qur'an Encyclopedia (quranenc.com).
+English: Saheeh International. Urdu: Fateh Muhammad Jalandhari (public domain).
+Transliteration: Tanzil. Word-by-word data and word audio: Quran.com.
+Page, juz, ruku, hizb and sajdah data: quran-meta (Hafs). Recitation: EveryAyah.com.

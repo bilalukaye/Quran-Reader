@@ -1,14 +1,18 @@
-// Offline support: keeps the app and fonts available without a connection.
-const CACHE = "quran-reader-v3";
-const CORE = ["/", "/index.html", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png"];
-self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
-self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
-self.addEventListener("fetch", e => {
-  const req = e.request;
-  if (req.method !== "GET" || new URL(req.url).pathname.startsWith("/api/")) return;
-  e.respondWith(caches.open(CACHE).then(async c => {
-    const hit = await c.match(req, { ignoreSearch: req.mode === "navigate" }) || (req.mode === "navigate" ? await c.match("/") : null);
-    const net = fetch(req).then(r => { if (r && (r.ok || r.type === "opaque")) c.put(req, r.clone()); return r; }).catch(() => hit);
-    return hit || net;
-  }));
+// Yours Quran Reader service worker. The Quran text, translations, word data and font are cached
+// on the first visit so reading works offline. Recitation audio is streamed and needs a connection.
+const V="yqr-2253301bf0";
+const CORE=["/","/manifest.webmanifest","/icons/icon-192.png","/icons/icon-512.png","/fonts/indopak.woff2?v=2253301bf0","/data/meta.json?v=2253301bf0","/data/ip.json?v=2253301bf0","/data/en.json?v=2253301bf0","/data/tr.json?v=2253301bf0","/data/ur.json?v=2253301bf0","/data/wbw.json?v=2253301bf0"];
+self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()));});
+self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k!=="yqr-runtime").map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
+self.addEventListener("fetch",e=>{
+  const r=e.request;if(r.method!=="GET")return;const u=new URL(r.url);
+  if(u.origin===location.origin){
+    if(u.pathname.startsWith("/api/"))return;
+    if(r.mode==="navigate"){ // network first, so updates arrive; cached copy when offline
+      e.respondWith(fetch(r).then(res=>{const c=res.clone();caches.open(V).then(x=>x.put("/",c));return res;}).catch(()=>caches.match("/")));return;}
+    e.respondWith(caches.match(r).then(hit=>hit||fetch(r).then(res=>{if(res.ok){const c=res.clone();caches.open(V).then(x=>x.put(r,c));}return res;})));return;
+  }
+  if(/^(fonts\.googleapis\.com|fonts\.gstatic\.com|cdnjs\.cloudflare\.com)$/.test(u.hostname)){
+    e.respondWith(caches.open("yqr-runtime").then(c=>c.match(r).then(hit=>{const net=fetch(r).then(res=>{if(res.ok||res.type==="opaque")c.put(r,res.clone());return res;}).catch(()=>hit);return hit||net;})));
+  }
 });

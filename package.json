@@ -1,6 +1,11 @@
 {
-  "name": "quran-reader",
+  "name": "yours-quran-reader",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=18" }
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }
