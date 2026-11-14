@@ -25,14 +25,14 @@
 <meta property="og:url" content="__SITE__/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="__SITE__/og.jpg">
-<link rel="preload" href="/fonts/indopak.woff2?v=2253301bf0" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/data/meta.json?v=2253301bf0" as="fetch" crossorigin>
-<link rel="preload" href="/data/ip.json?v=2253301bf0" as="fetch" crossorigin>
+<link rel="preload" href="/fonts/indopak.woff2?v=c33d0cc000" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/data/meta.json?v=c33d0cc000" as="fetch" crossorigin>
+<link rel="preload" href="/data/ip.json?v=c33d0cc000" as="fetch" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Noto+Nastaliq+Urdu:wght@400&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:"IndoPak Nastaleeq";src:url(/fonts/indopak.woff2?v=2253301bf0) format("woff2");font-display:block}
+@font-face{font-family:"IndoPak Nastaleeq";src:url(/fonts/indopak.woff2?v=c33d0cc000) format("woff2");font-display:block}
 :root{
   --paper:#FAF7F0; --surface:#FFFDF8; --sunk:#F0EADC; --ink:#1D2621; --muted:#5B6860;
   --pri:#1F5C48; --pri-soft:#E4EEE7; --gold:#9C7428; --gold-soft:#F1E6CB; --teal:#3B7759;
@@ -40,11 +40,14 @@
   --q:"Amiri Quran","Amiri","Scheherazade New","Noto Naskh Arabic","Traditional Arabic",serif;
   --ar:"Amiri","Noto Naskh Arabic","Traditional Arabic",serif;
   --lat:"Literata",Georgia,"Times New Roman",serif;
-  --qsize:34px; --tsize:17px; --lhk:1; --navh:56px;
+  --qsize:34px; --tsize:17px; --lhk:1; --navh:56px; --lhpx:75px; --qstroke:.04em;
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+  --rule:color-mix(in srgb,var(--ink) 30%,transparent);
   color-scheme:light;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
+  padding-left:var(--sal);padding-right:var(--sar);
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]):not([data-theme="paper"]){
@@ -83,7 +86,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backgroun
 .zoom{font-weight:600}
 
 /* bottom nav */
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);padding-left:var(--sal);padding-right:var(--sar)}
 nav.tabs a{flex:1;text-align:center;text-decoration:none;color:var(--muted);font-size:12px;padding:8px 0 7px;display:flex;flex-direction:column;align-items:center;gap:2px}
 nav.tabs a svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav.tabs a[aria-current="page"]{color:var(--pri);font-weight:600}
@@ -96,7 +99,7 @@ body.has-player main{padding-bottom:calc(var(--navh) + 88px + env(safe-area-inse
 @keyframes bslide{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
 @media (prefers-reduced-motion:reduce){.boot .bbar i{animation:none;width:100%}}
 /* recitation player */
-.player{position:fixed;left:0;right:0;bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px));z-index:19;background:var(--surface);border-top:1px solid var(--line);display:flex;align-items:center;gap:0;padding:4px 4px 4px 14px;min-height:60px;box-shadow:0 -4px 14px rgba(0,0,0,.05)}
+.player{position:fixed;left:0;right:0;bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px));z-index:19;background:var(--surface);border-top:1px solid var(--line);display:flex;align-items:center;gap:0;padding:4px calc(4px + var(--sar)) 4px calc(14px + var(--sal));min-height:60px;box-shadow:0 -4px 14px rgba(0,0,0,.05)}
 body.focus .player{bottom:env(safe-area-inset-bottom,0px)}
 .player .pinfo{flex:1;min-width:0;text-align:left;border:0;background:none;padding:6px 6px 6px 0;min-height:44px}
 .player .pinfo b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -108,11 +111,33 @@ body.focus .player{bottom:env(safe-area-inset-bottom,0px)}
 .spin{display:inline-block;width:20px;height:20px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:rot .8s linear infinite}
 @keyframes rot{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}
+/* ---------- mushaf look: ruled lines + page mode ---------- */
+.mushaf.ruled{text-align:justify;text-align-last:right;background-image:linear-gradient(to bottom,transparent calc(var(--lhpx) - 1px),var(--rule) calc(var(--lhpx) - 1px));background-size:100% var(--lhpx);background-repeat:repeat-y}
+.mushaf.ruled .jz,.mushaf.ruled .pend,.pager .mushaf .jz,.pager .mushaf .pend{display:inline-flex;width:100%;height:var(--lhpx);margin:0;line-height:1.3;vertical-align:top;text-align-last:auto}
+.pager .mushaf,.mushaf.ruled{widows:1;orphans:1}
+/* Every printed line is exactly one ruled line tall: letters and marks inside it can never stretch a line. */
+.mushaf.ruled .ay,.mushaf.ruled .ay .w,.mushaf.ruled .ay .rk,.mushaf.ruled .ay .sj,.mushaf.ruled .ay .an.ip,.pager .mushaf .ay,.pager .mushaf .ay .w,.pager .mushaf .ay .rk,.pager .mushaf .ay .sj,.pager .mushaf .ay .an.ip{line-height:0}
+.reader.snap .cartouche,.reader.snap .listen,.reader.snap .bism,.reader.snap .endnav{margin-top:0;margin-bottom:0;box-sizing:border-box}
+.reader.snap .listen,.reader.snap .endnav{display:flex;align-items:center;justify-content:center}
+body.paged{overflow:hidden;overscroll-behavior:none}
+body.paged main{padding-bottom:0}
+.pager{position:relative;overflow:hidden;margin:4px 12px 0;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.pager.framed{border:3px double var(--gold);background-image:linear-gradient(to bottom,transparent calc(var(--lhpx) - 1px),var(--rule) calc(var(--lhpx) - 1px));background-size:100% var(--lhpx);background-repeat:repeat-y}
+.pager .reader{max-width:none;margin:0;padding:0 12px;direction:rtl;column-fill:auto;will-change:transform}
+.pager .mushaf{text-align:justify;text-align-last:right;background:none}
+.pager .cartouche,.pager .listen,.pager .endnav,.pager .ayblock,.pager .jz,.pager .pend{direction:ltr}
+.pager .mushaf .jz,.pager .mushaf .pend{direction:ltr}
+.pager .cartouche{max-width:none}
+.pager .ay.flash{animation:none;background:var(--gold-soft)}
+.pbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 12px;padding:4px 0;font-size:13px;color:var(--muted)}
+.pbar button{border:0;background:transparent;color:var(--pri);font-size:14px;min-height:44px;padding:0 10px;border-radius:10px;display:inline-flex;align-items:center;gap:4px}
+.pbar button:disabled{color:var(--muted);opacity:.45}
+.pbar .pinf{text-align:center;flex:1;line-height:1.3}
 .ay.playing{background:color-mix(in srgb,var(--gold) 15%,transparent);border-radius:8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .listen{display:flex;justify-content:center;margin:2px 0 6px}
 .listen .btn{display:inline-flex;align-items:center;gap:8px}
 .listen svg{width:16px;height:16px;fill:currentColor}
-.rk{font-family:var(--q);color:var(--gold);font-size:.62em;margin:0 .12em;vertical-align:.35em}
+.rk{font-family:var(--q);color:var(--gold);font-size:.62em;margin:0 .12em;line-height:0;position:relative;top:-.35em;vertical-align:baseline}
 .wdb{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:2px 0 10px;text-align:center}
 .wdb div{min-width:0}
 .wdb b{display:block;font-size:20px;font-weight:600;color:var(--ink)}
@@ -146,12 +171,12 @@ body.focus main{padding-bottom:40px}
 .cartouche .ar{font-family:var(--ar);font-size:clamp(26px,7vw,36px);color:var(--pri);direction:rtl;font-weight:700;line-height:1.5}
 .cartouche .en{font-size:13px;color:var(--muted);line-height:1.4}
 .cartouche .en b{color:var(--ink);font-size:15px;font-weight:600}
-.bism{text-align:center;font-family:var(--q);font-size:calc(var(--qsize) * .95);color:var(--pri);margin:6px 0 14px;direction:rtl}
-.an.ip{border:0;border-radius:0;min-width:0;height:auto;margin:0 .08em;padding:0;font-family:var(--q);font-size:1em;vertical-align:baseline;color:var(--gold);line-height:inherit}
+.bism{text-align:center;font-family:var(--q);font-size:calc(var(--qsize) * .95);color:var(--pri);margin:6px 0 14px;direction:rtl;line-height:var(--lhpx);-webkit-text-stroke:var(--qstroke) currentColor}
+.an.ip{border:0;border-radius:0;min-width:0;height:auto;margin:0 .08em;padding:0;font-family:var(--q);font-size:1em;vertical-align:baseline;color:var(--gold);line-height:inherit;display:inline}
 
 :root[data-script="indopak"]{--q:"IndoPak Nastaleeq","Amiri Quran","Amiri",serif}
-:root[data-script="indopak"] .mushaf{line-height:calc(2.4 * var(--lhk))}
-.mushaf{direction:rtl;text-align:right;text-align-last:right;font-family:var(--q);font-size:var(--qsize);line-height:calc(2.15 * var(--lhk));word-spacing:.04em;user-select:text;-webkit-user-select:text}
+:root[data-script="indopak"] .mushaf{line-height:var(--lhpx)}
+.mushaf{direction:rtl;text-align:right;text-align-last:right;font-family:var(--q);font-size:var(--qsize);line-height:var(--lhpx);-webkit-text-stroke:var(--qstroke) currentColor;paint-order:stroke fill;word-spacing:.04em;user-select:text;-webkit-user-select:text}
 @media (min-width:600px){.mushaf{text-align:justify;text-align-last:center}}
 .w{cursor:pointer;border-radius:6px;transition:background .15s}
 .w:hover{background:var(--pri-soft)}
@@ -166,7 +191,7 @@ body.focus main{padding-bottom:40px}
 .an.bm.drop::before{animation:ribbon .28s ease-out}
 @keyframes ribbon{from{clip-path:polygon(0 0,100% 0,100% 0,50% 0,0 0)}}
 @media (prefers-reduced-motion:reduce){.an.bm.drop::before{animation:none}}
-.sj{color:var(--teal);font-size:.7em;margin:0 .1em}
+.sj{color:var(--teal);font-size:.7em;margin:0 .1em;line-height:0}
 .ay.flash{animation:flash 1.6s ease}
 @keyframes flash{0%,40%{background:var(--gold-soft)}100%{background:transparent}}
 @media (prefers-reduced-motion:reduce){.ay.flash{animation:none;background:var(--gold-soft)}}
@@ -299,7 +324,7 @@ input[type=range]{width:100%;accent-color:var(--pri)}
 
 /* sheet */
 .scrim{position:fixed;inset:0;background:rgba(8,18,13,.45);z-index:40}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;overscroll-behavior:contain;max-height:min(86vh,86dvh);background:var(--surface);border-radius:18px 18px 0 0;max-height:86vh;overflow:auto;padding:10px 18px calc(18px + env(safe-area-inset-bottom,0px));max-width:720px;margin:0 auto;box-shadow:0 -6px 24px rgba(0,0,0,.2);animation:up .22s ease}
+.sheet{position:fixed;left:var(--sal);right:var(--sar);bottom:0;z-index:41;overscroll-behavior:contain;max-height:min(86vh,86dvh);background:var(--surface);border-radius:18px 18px 0 0;max-height:86vh;overflow:auto;padding:10px 18px calc(18px + env(safe-area-inset-bottom,0px));max-width:720px;margin:0 auto;box-shadow:0 -6px 24px rgba(0,0,0,.2);animation:up .22s ease}
 @keyframes up{from{transform:translateY(30px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.sheet{animation:none}}
 .sheet .grab{width:40px;height:4px;border-radius:9px;background:var(--line);margin:0 auto 10px}
@@ -318,7 +343,7 @@ mark{background:var(--gold-soft);color:inherit;border-radius:3px}
 .sres .ar{font-family:var(--q);font-size:22px;direction:rtl;text-align:right;line-height:1.9}
 
 /* story player */
-.story{position:fixed;inset:0;z-index:70;background:#0E2E24;color:#F4EEDD;display:flex;flex-direction:column;padding:calc(12px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.story{position:fixed;inset:0;z-index:70;background:#0E2E24;color:#F4EEDD;display:flex;flex-direction:column;padding:calc(12px + env(safe-area-inset-top,0px)) calc(16px + var(--sar)) calc(16px + env(safe-area-inset-bottom,0px)) calc(16px + var(--sal))}
 .story .bars{display:flex;gap:4px}
 .story .bars i{flex:1;height:3px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden}
 .story .bars i b{display:block;height:100%;width:0;background:#D9B35E}
@@ -363,7 +388,7 @@ mark{background:var(--gold-soft);color:inherit;border-radius:3px}
 </nav>
 <div id="layer"></div>
 
-<script>window.QR_CFG={data:"/data/",ver:"2253301bf0",audio:true,ai:__AI__};</script>
+<script>window.QR_CFG={data:"/data/",ver:"c33d0cc000",audio:true,ai:__AI__};</script>
 <script>
 (async function(){
 "use strict";
@@ -388,6 +413,8 @@ async function boot(){
   const [meta,txt]=await Promise.all([fetchPart("meta"),fetchPart(first)]);
   S=meta.S;M=meta.M;V=S.map(x=>Array.from({length:x[4]},()=>["","","","","","",""]));
   fill(first,txt);loaded[first]=1;
+  // Pages are measured with the real Quran font, so give it a moment to arrive first.
+  try{await Promise.race([document.fonts.load('34px "'+(first==="ip"?"IndoPak Nastaleeq":"Amiri Quran")+'"'),new Promise(r=>setTimeout(r,3000))]);}catch(e){}
 }
 function bootFail(){
   const m=document.getElementById("main");
@@ -395,6 +422,9 @@ function bootFail(){
 }
 try{await boot();}catch(e){bootFail();return;}
 const MEAN=["en","tr","ur"];
+const PAGED=()=>st.settings.mode!=="scroll";
+// One line of Quran text in pixels; every block in the reader is a whole number of lines so ruled lines stay aligned.
+function lhPx(){const ip=st.settings.script!=="uthmani";return Math.round(st.settings.qsize*(ip?2.2:2.15)*({tight:.9,normal:1,relaxed:1.12}[st.settings.lh]||1));}
 const needMeanings=()=>need(...MEAN).catch(()=>{toast("Couldn’t load the meanings. Check your connection.");throw new Error("offline");});
 function setScript(){const ip=st.settings.script!=="uthmani";const part=ip?"ip":"uth";
   if(!loaded[part]){need(part).then(()=>{setScript();if(view==="read"){const k=topAyah();renderReader(cur.s,k?k.a:1);}}).catch(()=>toast("Couldn’t load that script. Check your connection."));return;}
@@ -420,7 +450,7 @@ function meaningHTML(v,center){const c=center?' style="text-align:center"':'';co
 
 /* ---------- state ---------- */
 const KEY="quran-reader-v1";
-const DEF={settings:{qsize:34,tsize:17,showTrans:false,showTranslit:false,theme:"auto",remTime:"20:00",remOn:true,kahfOn:true,script:"indopak",trans:"en",lh:"normal",reciter:"Alafasy_128kbps",rate:1,repeat:1,autoNext:true,follow:true,aiExp:false},dismiss:{},
+const DEF={settings:{qsize:34,tsize:17,showTrans:false,showTranslit:false,theme:"auto",remTime:"20:00",remOn:true,kahfOn:true,script:"indopak",trans:"en",lh:"normal",mode:"page",rules:true,weight:"bold",reciter:"Alafasy_128kbps",rate:1,repeat:1,autoNext:true,follow:true,aiExp:false},dismiss:{},
   last:{s:1,a:1},bookmarks:[],plan:null,goal:20,log:{},rt:{d:"",ids:[]},kahf:{},updatedAt:0};
 let st;
 try{st=Object.assign({},DEF,JSON.parse(localStorage.getItem(KEY)||"{}"));st.settings=Object.assign({},DEF.settings,st.settings||{});}catch(e){st=JSON.parse(JSON.stringify(DEF));}
@@ -443,7 +473,10 @@ function applySettings(){
   const r=document.documentElement;
   r.style.setProperty("--qsize",st.settings.qsize+"px");
   r.style.setProperty("--tsize",st.settings.tsize+"px");
-  r.style.setProperty("--lhk",{tight:.86,normal:1,relaxed:1.16}[st.settings.lh]||1);
+  r.style.setProperty("--lhk",{tight:.9,normal:1,relaxed:1.12}[st.settings.lh]||1);
+  r.style.setProperty("--lhpx",lhPx()+"px");
+  r.style.setProperty("--qstroke",st.settings.weight==="regular"?"0px":st.settings.script==="uthmani"?".018em":".04em");
+
   if(st.settings.theme==="auto")r.removeAttribute("data-theme");else r.setAttribute("data-theme",st.settings.theme);
   setScript();
 }
@@ -452,17 +485,17 @@ function zoom(d){
   const keep=topAyah();
   st.settings.qsize=Math.max(20,Math.min(96,st.settings.qsize+d));
   st.settings.tsize=Math.max(13,Math.min(32,Math.round(13+(st.settings.qsize-20)*0.2)));
-  applySettings();save();
-  if(keep)requestAnimationFrame(()=>scrollToAyah(keep.s,keep.a,false));
+  applySettings();save();lockPos=true;
+  requestAnimationFrame(()=>{relayout(keep||anchorNow());setTimeout(()=>{lockPos=false;},300);});
   toast("Text size "+st.settings.qsize);
 }
 $("#zIn").onclick=()=>zoom(4);$("#zOut").onclick=()=>zoom(-4);
 
 /* pinch to zoom on reader */
 let pinch=null;
-document.addEventListener("touchstart",e=>{if(e.touches.length===2&&view==="read"){pinch={d:dist(e.touches),q:st.settings.qsize};}},{passive:true});
+document.addEventListener("touchstart",e=>{if(e.touches.length===2&&view==="read"){pinch={d:dist(e.touches),q:st.settings.qsize,an:topAyah()||anchorNow()};lockPos=true;}},{passive:true});
 document.addEventListener("touchmove",e=>{if(pinch&&e.touches.length===2){e.preventDefault();const k=dist(e.touches)/pinch.d;const q=Math.round(Math.max(20,Math.min(96,pinch.q*k)));if(q!==st.settings.qsize){st.settings.qsize=q;st.settings.tsize=Math.max(13,Math.min(32,Math.round(13+(q-20)*0.2)));applySettings();}}},{passive:false});
-document.addEventListener("touchend",e=>{if(pinch&&e.touches.length<2){pinch=null;save();}},{passive:true});
+document.addEventListener("touchend",e=>{if(pinch&&e.touches.length<2){const an=pinch.an;pinch=null;save();relayout(an);setTimeout(()=>{lockPos=false;},300);}},{passive:true});
 function dist(t){return Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);}
 
 /* ---------- keep screen on ---------- */
@@ -590,7 +623,10 @@ function refreshBanners(){
       out.push('<div class="banner"><span class="grow"><b>Daily reminder:</b> '+(st.goal-readT)+' ayahs to reach today’s goal.</span><button class="btn small" data-cont="1">Read now</button>'+X("rem")+'</div>');
     }
   }
-  B.innerHTML=out.join("");B.classList.toggle("hidden",!out.length||!(view==="read"||view==="today")||document.body.classList.contains("focus"));
+  const sig=out.join("")+(!(view==="read"||view==="today")||document.body.classList.contains("focus"));const changed=B.dataset.sig!==sig;B.dataset.sig=sig;
+  if(!changed)return;
+  const an=typeof PG!=="undefined"&&PG&&view==="read"?topAyah():null;
+  B.innerHTML=out.join("");if(an)requestAnimationFrame(()=>relayout(an));B.classList.toggle("hidden",!out.length||!(view==="read"||view==="today")||document.body.classList.contains("focus"));
 }
 function nextDay(d){const x=new Date(d+"T12:00:00");x.setDate(x.getDate()+1);return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0");}
 document.addEventListener("click",e=>{
@@ -612,7 +648,7 @@ function route(){
   if(overlayOpen()){closeDom();ovPushed=false;}
   const r=parseHash();view=r.view;
   document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.v===TABV[view])a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
-  document.body.dataset.view=view;
+  document.body.dataset.view=view;if(view!=="read"){document.body.classList.remove("paged");PG=null;}
   const sub=view==="guide"||view==="about";
   $("#btnBack").classList.toggle("hidden",!sub);$("#btnSurahs").classList.toggle("hidden",sub);
   ["zIn","zOut"].forEach(id=>$("#"+id).classList.toggle("hidden",view!=="read"));
@@ -644,7 +680,8 @@ function renderReader(s,a){
   cur.s=s;const info=S[s-1];
   setTitle(info[1]+" · "+s,subtitle(s,a||1));
   const bm=new Set(st.bookmarks.map(b=>G(b.s,b.a)));
-  let h='<div class="reader" id="reader"><div class="cartouche"><div class="ar">سورة '+esc(info[0])+'</div><div class="en"><b>'+esc(info[1])+'</b> · '+esc(info[2])+' · '+info[4]+' ayahs · '+(info[3]==="d"?"Madani":"Makki")+'</div></div>';
+  const paged=PAGED(),ruled=!!st.settings.rules&&!showT&&!showL;
+  let h='<div class="reader'+(ruled||paged?' snap':'')+'" id="reader"><div class="cartouche"><div class="ar">سورة '+esc(info[0])+'</div><div class="en"><b>'+esc(info[1])+'</b> · '+esc(info[2])+' · '+info[4]+' ayahs · '+(info[3]==="d"?"Madani":"Makki")+'</div></div>';
   if(AUDIO)h+='<div class="listen"><button class="btn ghost small" id="listenS"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>Listen to '+esc(info[1])+'</button></div>';
   if(s!==1&&s!==9)h+='<div class="bism">'+esc(V[0][0][0])+'</div>';
   const vs=V[s-1];const ipS=st.settings.script!=="uthmani";
@@ -653,7 +690,7 @@ function renderReader(s,a){
   const anAttr=(i,g)=>(bm.has(g)?' bm" style="--bc:'+esc(bmc.get(g)||COLORS[0])+'"':'"')+' role="button" tabindex="0" aria-label="'+anLabel(i+1,bm.has(g))+'"';
   const num=(i,g)=>(SAJ.has(s+":"+(i+1))?'<span class="sj" title="Ayah of prostration (sajdah)">۩</span>':"")+(ipS&&RUKU_END.has(g)?'<span class="rk" title="End of ruku" aria-label="End of ruku">ع</span>':"")+(ipS?'<span class="an ip'+anAttr(i,g)+'>۝'+AD(i+1)+esc(vs[i][4]||"")+'</span>':'<span class="an'+anAttr(i,g)+'>'+AD(i+1)+'</span>');
   if(!showT&&!showL){
-    h+='<div class="mushaf">';
+    h+='<div class="mushaf'+(ruled?' ruled':'')+'">';
     vs.forEach((v,i)=>{const g=OFF[s-1]+i;h+=jzMark(g,true)+'<span class="ay" data-g="'+g+'" id="a'+(i+1)+'">'+words(v[0])+" "+num(i,g)+'</span> '+pendMark(g);});
     h+='</div>';
   }else{
@@ -664,6 +701,8 @@ function renderReader(s,a){
   }
   h+='<div class="endnav">'+(s>1?'<button class="btn ghost" id="prevS">← '+esc(sname(s-1))+'</button>':'<span></span>')
     +(s<114?'<button class="btn" id="nextS">'+esc(sname(s+1))+' →</button>':'<button class="btn" id="finishQ">Finish</button>')+'</div></div>';
+  if(paged)h='<div class="pager'+(ruled?' framed':'')+'" id="pager">'+h+'</div><div class="pbar" id="pbar"><button id="pgNext" aria-label="Next page">‹ Next</button><span class="pinf" id="pgInfo" aria-live="polite"></span><button id="pgPrev" aria-label="Previous page">Previous ›</button></div>';
+  document.body.classList.toggle("paged",paged);
   $("#main").innerHTML=h;
   const R=$("#reader");
   R.addEventListener("click",onReaderClick);
@@ -677,6 +716,8 @@ function renderReader(s,a){
   if($("#finishQ"))$("#finishQ").onclick=()=>{markVisible();save();toast("Completed. May Allah accept it.");};
   {const nd=new Date();if(s===18&&(nd.getDay()===5||(nd.getDay()===4&&nd.getHours()>=18))){st.kahf[nd.getDay()===5?today():nextDay(today())]=1;save();}}
   if(io)io.disconnect();
+  if(paged){bindPager();layoutPages({s,a:a||1},a>1);refreshBanners();markSide();markPlaying(true);return;}
+  PG=null;if(ruled)snapBlocks(R);
   io=new IntersectionObserver(es=>{const now=Date.now();es.forEach(en=>{const g=+en.target.dataset.g;
     if(en.isIntersecting){if(!seenAt[g])seenAt[g]=now;}
     else{if(en.boundingClientRect.bottom<=80&&seenAt[g]&&now-seenAt[g]>=1200)markRead(g);delete seenAt[g];}});},{rootMargin:"-60px 0px 0px 0px"});
@@ -684,13 +725,98 @@ function renderReader(s,a){
   requestAnimationFrame(()=>{if(a&&a>1)scrollToAyah(s,a,true);else window.scrollTo(0,0);updProg();});
   refreshBanners();markSide();markPlaying(true);
 }
+
+/* ---------- page mode (reads like a mushaf: swipe to turn pages) ---------- */
+let PG=null,swipeAt=0;
+// Give headings and markers a height that is a whole number of lines, so text sits on the ruled lines.
+function snapBlocks(R){const lh=lhPx();
+  R.querySelectorAll(".cartouche,.listen,.bism,.endnav").forEach(el=>{el.style.height="";const h=el.getBoundingClientRect().height;el.style.height=Math.max(1,Math.ceil((h-1)/lh))*lh+"px";});}
+function pageOfRect(r){return Math.max(0,Math.floor((PG.pr-(r.right-PG.k*PG.step)+2)/PG.step));}
+function pageOfAyah(a){const el=document.getElementById("a"+a);if(!el||!PG)return 0;const r=el.getClientRects()[0];return r?pageOfRect(r):0;}
+function firstAyahOnPage(k){let cont=null;
+  for(const el of document.querySelectorAll("#reader .ay")){const rs=el.getClientRects();if(!rs.length)continue;
+    const p0=pageOfRect(rs[0]);if(p0===k)return fromG(+el.dataset.g);
+    if(p0<k&&pageOfRect(rs[rs.length-1])>=k)cont=fromG(+el.dataset.g);
+    if(p0>k)break;}
+  return cont;}
+function layoutPages(anchor,flash){
+  const P=$("#pager"),R=$("#reader"),B=$("#pbar");if(!P||!R)return;window.scrollTo(0,0);
+  const lh=lhPx();document.documentElement.style.setProperty("--lhpx",lh+"px");
+  R.style.transition="none";R.style.transform="none";R.style.columnWidth="";R.style.height="";
+  const frame=P.classList.contains("framed")?6:0;
+  const nav=$("nav.tabs"),navOn=getComputedStyle(nav).display!=="none"&&!matchMedia("(min-width:1100px)").matches;
+  const bottomUI=(navOn?nav.getBoundingClientRect().height:0)
+    +(document.body.classList.contains("has-player")?$("#player").getBoundingClientRect().height:0)+(document.body.classList.contains("focus")?parseFloat(getComputedStyle(document.documentElement).paddingBottom)||0:0);
+  const avail=innerHeight-P.getBoundingClientRect().top-B.getBoundingClientRect().height-bottomUI-frame-6;
+  const H=Math.max(lh*3,Math.floor(avail/lh)*lh);
+  P.style.height=(H+frame)+"px";R.style.height=H+"px";
+  const cs=getComputedStyle(R);const pl=parseFloat(cs.paddingLeft)||0,pr=parseFloat(cs.paddingRight)||0;
+  const colW=Math.floor(R.clientWidth-pl-pr),gap=Math.round(pl+pr);
+  R.style.columnWidth=colW+"px";R.style.columnGap=gap+"px";
+  snapBlocks(R);
+  const pRect=P.getBoundingClientRect();
+  PG={k:0,step:colW+gap,pr:pRect.right-(frame/2)-pr,total:1,since:Date.now()};
+  const last=R.lastElementChild,lr=last&&last.getClientRects();PG.total=lr&&lr.length?pageOfRect(lr[lr.length-1])+1:1;
+  const k=anchor&&anchor.s===cur.s?pageOfAyah(anchor.a):0;PG.anchor=anchor&&anchor.s===cur.s?{s:anchor.s,a:anchor.a}:null;goPage(k,false);
+  if(flash&&anchor){const el=document.getElementById("a"+anchor.a);if(el){el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1600);}}
+}
+function goPage(k,anim){
+  if(!PG)return;k=Math.max(0,Math.min(PG.total-1,k));
+  if(k!==PG.k)PG.since=Date.now();PG.k=k;
+  const R=$("#reader");const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  R.style.transition=anim&&!reduce?"transform .3s cubic-bezier(.2,.7,.3,1)":"none";R.style.transform="translateX("+(k*PG.step)+"px)";
+  $("#pgInfo").textContent="Page "+(k+1)+" of "+PG.total;
+  $("#pgPrev").disabled=k===0&&cur.s===1;$("#pgNext").disabled=k===PG.total-1&&cur.s===114;
+  $("#pgNext").textContent=k===PG.total-1&&cur.s<114?"‹ "+sname(cur.s+1):"‹ Next";
+  $("#pgPrev").textContent=k===0&&cur.s>1?sname(cur.s-1)+" ›":"Previous ›";
+  const pb=$("#prog");if(pb)pb.style.width=((k+1)/PG.total*100)+"%";
+  const f=firstAyahOnPage(k);if(f)PG.anchor=f;
+  if(f&&!lockPos){st.last={s:f.s,a:f.a};dirty=true;$("#ts").textContent=subtitle(f.s,f.a);try{history.replaceState(history.state,"","#s"+f.s+"-"+f.a);}catch(e){}}
+}
+function markPageRead(k){if(!PG||Date.now()-PG.since<2000)return;
+  document.querySelectorAll("#reader .ay").forEach(el=>{const rs=el.getClientRects();if(rs.length&&[...rs].some(r=>pageOfRect(r)===k))markRead(+el.dataset.g);});}
+function nextPage(){if(!PG)return;if(PG.k<PG.total-1){markPageRead(PG.k);goPage(PG.k+1,true);}else if(cur.s<114){markPageRead(PG.k);openAt(cur.s+1,1);}else goPage(PG.k,true);}
+function prevPage(){if(!PG)return;if(PG.k>0)goPage(PG.k-1,true);else if(cur.s>1)openAt(cur.s-1,S[cur.s-2][4]);else goPage(0,true);}
+function bindPager(){
+  const P=$("#pager");$("#pgNext").onclick=nextPage;$("#pgPrev").onclick=prevPage;
+  let id=null,x0=0,y0=0,t0=0,drag=false;
+  P.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse"&&e.button!==0)return;id=e.pointerId;x0=e.clientX;y0=e.clientY;t0=performance.now();drag=false;});
+  P.addEventListener("pointermove",e=>{if(e.pointerId!==id||!PG)return;const dx=e.clientX-x0,dy=e.clientY-y0;
+    if(!drag&&Math.abs(dx)>12&&Math.abs(dx)>Math.abs(dy)*1.2){drag=true;clearTimeout(holdT);}
+    if(drag){const atEnd=(dx>0&&PG.k>=PG.total-1&&cur.s>=114)||(dx<0&&PG.k<=0&&cur.s<=1);
+      const R=$("#reader");R.style.transition="none";R.style.transform="translateX("+(PG.k*PG.step+(atEnd?dx*.25:dx))+"px)";}});
+  const end=e=>{if(e.pointerId!==id)return;id=null;if(!drag||!PG)return;drag=false;swipeAt=Date.now();
+    const dx=e.clientX-x0,v=Math.abs(dx)/Math.max(1,performance.now()-t0);
+    if(e.type==="pointerup"&&(Math.abs(dx)>P.clientWidth*.18||(v>.45&&Math.abs(dx)>30))){if(dx>0)nextPage();else prevPage();}else goPage(PG.k,true);};
+  P.addEventListener("pointerup",end);P.addEventListener("pointercancel",end);
+}
+document.addEventListener("keydown",e=>{if(view!=="read"||!PG||overlayOpen()||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+  if(e.key==="ArrowLeft"||e.key==="PageDown"){e.preventDefault();nextPage();}else if(e.key==="ArrowRight"||e.key==="PageUp"){e.preventDefault();prevPage();}});
+// Keep the same ayah in view when the phone is rotated, the window is resized or the text size changes.
+let rzT=null,rzAnchor=null,lockPos=false,lastW=innerWidth;
+function relayout(anchor){if(view!=="read")return;if(PG&&$("#pager"))layoutPages(anchor);else if(anchor)scrollToAyah(anchor.s,anchor.a,false);}
+function anchorNow(){if(PG&&PG.anchor&&PG.anchor.s===cur.s)return {s:PG.anchor.s,a:PG.anchor.a};return st.last&&st.last.s===cur.s?{s:st.last.s,a:st.last.a}:{s:cur.s,a:1};}
+function onResize(){
+  if(view!=="read")return;const wChanged=Math.abs(innerWidth-lastW)>2;
+  if(!PG&&!wChanged)return; // scroll mode: ignore the address bar showing/hiding
+  if(!rzAnchor){rzAnchor=anchorNow();lockPos=true;}
+  clearTimeout(rzT);rzT=setTimeout(()=>{const an=rzAnchor;rzAnchor=null;lastW=innerWidth;setNavH();relayout(an);setTimeout(()=>{lockPos=false;},500);},200);
+}
+addEventListener("resize",onResize);addEventListener("orientationchange",onResize);
+if(window.visualViewport)visualViewport.addEventListener("resize",onResize);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(view==="read")relayout(anchorNow());});
+// A font that finishes loading changes word widths, so re-measure the pages and stay on the same ayah.
+if(document.fonts&&document.fonts.addEventListener)document.fonts.addEventListener("loadingdone",()=>{if(view==="read"&&PG&&!pinch)relayout(topAyah()||anchorNow());});
+
 function scrollToAyah(s,a,flash){
+  if(PG&&$("#pager")){if(cur.s===s)goPage(pageOfAyah(a),false);if(flash){const el=document.getElementById("a"+a);if(el){el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1600);}}return;}
   const el=document.getElementById("a"+a);if(!el)return;
   const y=el.getBoundingClientRect().top+scrollY-70;window.scrollTo(0,Math.max(0,y));
   if(flash){el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
 }
 function topAyah(){
   if(view!=="read")return null;
+  if(PG&&$("#pager"))return PG.anchor||firstAyahOnPage(PG.k); // remembered, so a reflow can't move it
   // In the flowing mushaf layout an ayah's tail can share a line with the next ayah's start;
   // the ayah being read is the one that starts on (or still fills) the top reading line.
   const LINE=72;
@@ -704,7 +830,7 @@ function topAyah(){
 }
 let scT;
 function updProg(){const R=$("#reader");const pb=$("#prog");if(!R||!pb)return;const max=R.offsetTop+R.offsetHeight-innerHeight;pb.style.width=(max>0?Math.min(100,Math.max(0,scrollY/max*100)):100)+"%";}
-window.addEventListener("scroll",()=>{if(view!=="read")return;updProg();clearTimeout(scT);scT=setTimeout(()=>{const t=topAyah();if(t&&(t.s!==st.last.s||t.a!==st.last.a)){st.last={s:t.s,a:t.a};$("#ts").textContent=subtitle(t.s,t.a);try{history.replaceState(history.state,"","#s"+t.s+"-"+t.a);}catch(e){}void juzOf(G(t.s,t.a));dirty=true;}},250);},{passive:true});
+window.addEventListener("scroll",()=>{if(view!=="read"||PG||lockPos)return;updProg();clearTimeout(scT);scT=setTimeout(()=>{const t=topAyah();if(t&&(t.s!==st.last.s||t.a!==st.last.a)){st.last={s:t.s,a:t.a};$("#ts").textContent=subtitle(t.s,t.a);try{history.replaceState(history.state,"","#s"+t.s+"-"+t.a);}catch(e){}void juzOf(G(t.s,t.a));dirty=true;}},250);},{passive:true});
 
 let holdT=null,holdFired=false;
 function bindHold(R){
@@ -715,6 +841,7 @@ function bindHold(R){
   R.addEventListener("contextmenu",e=>{const an=e.target.closest(".an");if(!an)return;e.preventDefault();clearTimeout(holdT);if(!holdFired){holdFired=true;ayahSheet(+an.closest(".ay").dataset.g);}setTimeout(()=>{holdFired=false;},600);});
 }
 function onReaderClick(e){
+  if(Date.now()-swipeAt<400)return;
   const w=e.target.closest(".w");const an=e.target.closest(".an");const mn=e.target.closest("[data-menu]");
   if(an){if(holdFired){holdFired=false;return;}toggleBookmark(+an.closest(".ay").dataset.g);return;}
   if(mn){ayahSheet(+mn.dataset.menu);return;}
@@ -832,7 +959,10 @@ function stopAudio(){if(au){au.pause();au.removeAttribute("src");try{au.load();}
 function setPS(x){PL.st=x;renderPlayer();if("mediaSession" in navigator)navigator.mediaSession.playbackState=x==="playing"?"playing":x==="paused"?"paused":"none";}
 function renderPlayer(){
   const P=$("#player");if(!P)return;const on=AUDIO&&PL.st!=="idle";
-  P.classList.toggle("hidden",!on);document.body.classList.toggle("has-player",on);if(!on){P.innerHTML="";return;}
+  const was=document.body.classList.contains("has-player");
+  P.classList.toggle("hidden",!on);document.body.classList.toggle("has-player",on);
+  if(was!==on&&PG&&view==="read")requestAnimationFrame(()=>relayout(topAyah()||anchorNow()));
+  if(!on){P.innerHTML="";return;}
   const reps=+st.settings.repeat||1;
   const msg={loading:"Loading…",playing:recName()+(reps>1?" · repeat "+(PL.rep+1)+" of "+reps:""),paused:"Paused · "+recName(),error:"Couldn’t load the recitation. Check your connection, then tap play.",done:PL.single?"Finished this ayah":"Finished Surah "+sname(PL.s)}[PL.st]||"";
   const label=PL.bism?"Bismillah · before "+sname(PL.s):sname(PL.s)+" "+PL.s+":"+PL.a;
@@ -850,6 +980,7 @@ function markPlaying(noScroll){
   if(!AUDIO||PL.st==="idle"||PL.bism||view!=="read"||cur.s!==PL.s)return;
   const el=document.getElementById("a"+PL.a);if(!el)return;el.classList.add("playing");
   if(noScroll||!st.settings.follow)return;
+  if(PG&&$("#pager")){const p=pageOfAyah(PL.a);const rs=[...el.getClientRects()];if(!rs.some(r=>pageOfRect(r)===PG.k))goPage(p,true);return;}
   const r=el.getBoundingClientRect(),top=70,bot=innerHeight-(document.body.classList.contains("has-player")?140:80);
   if(r.top<top||r.bottom>bot){const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.scrollTo({top:Math.max(0,r.top+scrollY-innerHeight*0.3),behavior:reduce?"auto":"smooth"});}
@@ -890,6 +1021,9 @@ function openSettings(){
   sheet('<h2>Settings</h2>'
    +'<div class="field" style="margin-bottom:0"><label for="fs">Arabic text size</label><b id="fsv">'+x.qsize+'</b></div><input type="range" id="fs" min="20" max="96" step="2" value="'+x.qsize+'">'
    +'<div class="mushaf" id="fprev" lang="ar" style="text-align:center;text-align-last:center;margin:6px 0 12px">'+esc(V[0][1][0])+'</div>'
+   +'<p class="sublabel">Reading</p>'+seg("segMode",[["page","Pages (swipe)"],["scroll","Scroll"]],PAGED()?"page":"scroll")
+   +'<div class="field"><label for="ru">Ruled lines, like a printed mushaf</label><input type="checkbox" id="ru" '+(x.rules?"checked":"")+'></div>'
+   +'<p class="sublabel">Letter weight</p>'+seg("segWt",[["bold","Bold"],["regular","Regular"]],x.weight==="regular"?"regular":"bold")
    +'<p class="sublabel">Script</p>'+seg("segScript",[["indopak","IndoPak"],["uthmani","Madani (Uthmani)"]],x.script==="uthmani"?"uthmani":"indopak")
    +'<p class="sublabel">Line spacing</p>'+seg("segLh",[["tight","Compact"],["normal","Comfortable"],["relaxed","Relaxed"]],x.lh||"normal")
    +'<div class="field"><label for="th">Theme</label><select id="th"><option value="auto">Match device</option><option value="light">Light</option><option value="paper">Warm</option><option value="dark">Dark</option></select></div>'
@@ -917,9 +1051,12 @@ function openSettings(){
      const bindSeg=(id,fn)=>sh.querySelectorAll("#"+id+" button").forEach(b=>b.onclick=()=>{sh.querySelectorAll("#"+id+" button").forEach(o=>o.setAttribute("aria-pressed",o===b));fn(b.dataset.v);});
      sh.querySelector("#th").value=x.theme;
      sh.querySelector("#fs").oninput=e=>{x.qsize=+e.target.value;x.tsize=Math.max(13,Math.min(32,Math.round(13+(x.qsize-20)*0.2)));applySettings();sh.querySelector("#fsv").textContent=x.qsize;};
-     sh.querySelector("#fs").onchange=()=>save();
+     sh.querySelector("#fs").onchange=()=>{save();if(view==="read")relayout(topAyah()||anchorNow());};
      bindSeg("segScript",v=>{x.script=v;applySettings();const fp=sh.querySelector("#fprev");if(loaded[v==="uthmani"?"uth":"ip"])fp.textContent=V[0][1][0];rerender();});
-     bindSeg("segLh",v=>{x.lh=v;applySettings();save();});
+     bindSeg("segLh",v=>{x.lh=v;applySettings();rerender();});
+     bindSeg("segMode",v=>{x.mode=v;rerender();});
+     bindSeg("segWt",v=>{x.weight=v;applySettings();save();});
+     sh.querySelector("#ru").onchange=e=>{x.rules=e.target.checked;rerender();};
      bindSeg("segLang",v=>{x.trans=v;rerender();});
      sh.querySelector("#sm").onchange=e=>{x.showTrans=e.target.checked;rerender();};
      sh.querySelector("#tl").onchange=e=>{x.showTranslit=e.target.checked;rerender();};
@@ -931,14 +1068,14 @@ function openSettings(){
        sh.querySelector("#fl").onchange=e=>{x.follow=e.target.checked;save();};}
      const ai=sh.querySelector("#ai");if(ai)ai.onchange=e=>{x.aiExp=e.target.checked;save();};
      const aw=sh.querySelector("#aw");if(aw)aw.onchange=async e=>{x.awake=e.target.checked;save();const ok=await applyWake();if(x.awake&&view==="read"&&!ok){toast("Your device didn’t allow keeping the screen on");}};
-     const fo=sh.querySelector("#fo");if(fo)fo.onclick=()=>{closeSheet().then(()=>{document.body.classList.add("focus");$("#exitFocus").classList.remove("hidden");refreshBanners();});};
+     const fo=sh.querySelector("#fo");if(fo)fo.onclick=()=>{const an=topAyah();closeSheet().then(()=>{document.body.classList.add("focus");$("#exitFocus").classList.remove("hidden");refreshBanners();relayout(an);});};
      sh.querySelector("#ro").onchange=e=>{x.remOn=e.target.checked;save();refreshBanners();};
      sh.querySelector("#rt").onchange=e=>{x.remTime=e.target.value||"20:00";save();refreshBanners();};
      sh.querySelector("#ko").onchange=e=>{x.kahfOn=e.target.checked;save();refreshBanners();};
    },"Settings");
 }
 $("#btnSettings").onclick=openSettings;
-$("#exitFocus").onclick=()=>{document.body.classList.remove("focus");$("#exitFocus").classList.add("hidden");refreshBanners();};
+$("#exitFocus").onclick=()=>{const an=topAyah();document.body.classList.remove("focus");$("#exitFocus").classList.add("hidden");refreshBanners();relayout(an);};
 
 /* ---------- surah / juz picker ---------- */
 function picker(){
