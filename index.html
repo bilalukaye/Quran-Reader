@@ -25,14 +25,14 @@
 <meta property="og:url" content="__SITE__/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="__SITE__/og.jpg">
-<link rel="preload" href="/fonts/indopak.woff2?v=6b705760e4" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/data/meta.json?v=6b705760e4" as="fetch" crossorigin>
-<link rel="preload" href="/data/ip.json?v=6b705760e4" as="fetch" crossorigin>
+<link rel="preload" href="/fonts/indopak.woff2?v=cdf38b28a5" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/data/meta.json?v=cdf38b28a5" as="fetch" crossorigin>
+<link rel="preload" href="/data/ip.json?v=cdf38b28a5" as="fetch" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Noto+Nastaliq+Urdu:wght@400&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:"IndoPak Nastaleeq";src:url(/fonts/indopak.woff2?v=6b705760e4) format("woff2");font-display:block}
+@font-face{font-family:"IndoPak Nastaleeq";src:url(/fonts/indopak.woff2?v=cdf38b28a5) format("woff2");font-display:block}
 :root{
   --paper:#F7F3EA; --surface:#F7F3EA; --sunk:#EDE6D7; --ink:#1F1C17; --muted:#68625A;
   --pri:#1F5C48; --pri-soft:#E3EBE2; --gold:#98712A; --gold-soft:#EFE4C8; --teal:#3B7759;
@@ -119,7 +119,7 @@ body.focus .player{bottom:env(safe-area-inset-bottom,0px)}
 .mushaf.ruled .ay,.mushaf.ruled .ay .w,.mushaf.ruled .ay .rk,.mushaf.ruled .ay .sj,.mushaf.ruled .ay .an.ip,.pager .mushaf .ay,.pager .mushaf .ay .w,.pager .mushaf .ay .rk,.pager .mushaf .ay .sj,.pager .mushaf .ay .an.ip{line-height:0}
 .reader.snap .cartouche,.reader.snap .listen,.reader.snap .bism,.reader.snap .endnav{margin-top:0;margin-bottom:0;box-sizing:border-box}
 .reader.snap .listen,.reader.snap .endnav{display:flex;align-items:center;justify-content:center}
-body.paged{overscroll-behavior-x:none}
+body.paged{overflow:hidden;overscroll-behavior:none}
 .pager{position:relative;overflow:hidden;margin:0 6px;touch-action:pan-y;-webkit-user-select:none;user-select:none}
 .pager .reader{max-width:none;margin:0;padding:0 14px;direction:rtl;column-fill:auto;will-change:transform}
 .pager .mushaf{text-align:justify;text-align-last:right;background:none}
@@ -388,18 +388,18 @@ body[data-view="read"] header.top{border-bottom-color:transparent}
 /* the ayah being read in a panel, softly highlighted */
 .ay.sel{background:color-mix(in srgb,var(--gold) 20%,transparent);border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 /* ---- Mushaf pages ---- */
-body.paged main{touch-action:pan-y;padding-bottom:calc(var(--navh) + 74px + env(safe-area-inset-bottom,0px))}
-body.paged.has-player main{padding-bottom:calc(var(--navh) + 136px + env(safe-area-inset-bottom,0px))}
+body.paged main{padding-bottom:0}
 .reader.mp{max-width:920px;margin:0 auto;padding:0 18px;will-change:transform}
 @media (max-width:599px){.reader.mp .mushaf{text-align:right}}
 @media (min-width:600px){.reader.mp .mushaf{text-align:justify;text-align-last:right}}
 .reader.mp .cartouche{margin-top:10px}
-.mphead{display:flex;justify-content:space-between;align-items:baseline;max-width:920px;margin:0 auto;padding:6px 22px 4px;direction:rtl;line-height:1.2}
+.mphead{display:flex;justify-content:space-between;align-items:center;max-width:920px;margin:0 auto;padding:0 22px;height:34px;box-sizing:border-box;overflow:hidden;direction:rtl;line-height:1.2}
 .mphead .ps{font-family:var(--q);font-size:19px;color:var(--gold)}
 .mphead .pj{font-family:var(--ar);font-size:16px;color:var(--muted)}
 .pgend{display:flex;flex-direction:column;align-items:center;gap:10px;margin:26px 0 6px;color:var(--muted);font-size:13px}
 .pgend .orn{width:120px;height:10px;background:radial-gradient(circle,var(--gold) 0 2.5px,transparent 3px) center/14px 10px repeat-x;opacity:.55}
-.pgpill{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px) + 10px);z-index:18;
+.banners:empty{display:none}
+.pgpill{min-height:33px;box-sizing:border-box;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px) + 10px);z-index:18;
   background:color-mix(in srgb,var(--read-bg) 86%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 body.has-player .pgpill{bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px) + 72px)}
@@ -449,7 +449,7 @@ body.focus .pgpill{bottom:calc(env(safe-area-inset-bottom,0px) + 10px)}
 </nav>
 <div id="layer"></div>
 
-<script>window.QR_CFG={data:"/data/",ver:"6b705760e4",audio:true,ai:__AI__};</script>
+<script>window.QR_CFG={data:"/data/",ver:"cdf38b28a5",audio:true,ai:__AI__};</script>
 <script>
 (async function(){
 "use strict";
@@ -729,7 +729,7 @@ async function openAt(s,a){
   const h="#s"+s+"-"+a;
   if(location.hash===h)renderReader(s,a);else location.hash=h;
 }
-function subtitle(s,a){const g=G(s,a);return "Ayah "+a+" · Juz "+juzOf(g)+" · Page "+pageOf(g)+" / "+PAGEG.length;}
+function subtitle(s,a){const g=G(s,a);return "Ayah "+a+" · Juz "+juzOf(g)+(st.settings.script==="uthmani"?" · Page "+pageOf(g):"");}
 
 /* ---------- reader ---------- */
 let io=null;const seenAt={};
@@ -739,33 +739,13 @@ function renderReader(s,a){
   const showT=!!st.settings.showTrans,showL=!!st.settings.showTranslit;
   if((showT||showL)&&!MEAN.every(p=>loaded[p])){$("#main").innerHTML='<div class="boot" role="status">Loading the meanings…<div class="bbar"><i></i></div></div>';
     needMeanings().then(()=>{if(view==="read")renderReader(s,a);}).catch(()=>{st.settings.showTrans=false;st.settings.showTranslit=false;renderReader(s,a);});return;}
-  if(PAGED())return renderMushafPage(s,a||1);
   MP=null;cur.s=s;const info=S[s-1];
   setTitle(info[1]+" · "+s,subtitle(s,a||1));
   const bm=new Set(st.bookmarks.map(b=>G(b.s,b.a)));
   const paged=PAGED(),ruled=false;
-  let h='<div class="reader'+(ruled||paged?' snap':'')+'" id="reader">'+surahHead(s);
-  if(AUDIO)h+='<div class="listen"><button class="btn ghost small" id="listenS"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>Listen to '+esc(info[1])+'</button></div>';
-  if(s!==1&&s!==9)h+='<div class="bism">'+esc(V[0][0][0])+'</div>';
-  const vs=V[s-1];const ipS=st.settings.script!=="uthmani";
-  const words=t=>t.split(" ").map(w=>'<span class="w">'+esc(w)+'</span>').join(" ");
-  const bmc=new Map(st.bookmarks.map(b=>[G(b.s,b.a),b.c]));
-  const anAttr=(i,g)=>(bm.has(g)?' bm" style="--bc:'+esc(bmc.get(g)||COLORS[0])+'"':'"')+' role="button" tabindex="0" aria-label="'+anLabel(i+1,bm.has(g))+'"';
-  const num=(i,g)=>(SAJ.has(s+":"+(i+1))?'<span class="sj" title="Ayah of prostration (sajdah)">۩</span>':"")+(ipS&&RUKU_END.has(g)?'<span class="rk" title="End of ruku" aria-label="End of ruku">ع</span>':"")+(ipS?'<span class="an ip'+anAttr(i,g)+'>۝'+AD(i+1)+esc(vs[i][4]||"")+'</span>':'<span class="an'+anAttr(i,g)+'>'+AD(i+1)+'</span>');
-  if(!showT&&!showL){
-    h+='<div class="mushaf'+(ruled?' ruled':'')+'">';
-    vs.forEach((v,i)=>{const g=OFF[s-1]+i;h+=jzMark(g,true)+'<span class="ay" data-g="'+g+'" id="a'+(i+1)+'">'+words(v[0])+" "+num(i,g)+'</span> '+pendMark(g);});
-    h+='</div>';
-  }else{
-    vs.forEach((v,i)=>{const g=OFF[s-1]+i;
-      h+=jzMark(g,false)+'<div class="ayblock ay" data-g="'+g+'" id="a'+(i+1)+'">'
-      +'<div class="mushaf"><span class="ameta"><button class="ib" data-menu="'+g+'" aria-label="Options for ayah '+s+':'+(i+1)+'"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></button><span class="ref">'+s+":"+(i+1)+'</span></span>'+words(v[0])+" "+num(i,g)+'</div>'
-      +(showL?'<div class="translit">'+esc(v[2])+'</div>':"")+(showT?meaningHTML(v):"")+'</div>'+pendMark(g);});
-  }
-  h+='<div class="endnav">'+(s>1?'<button class="btn ghost" id="prevS">← '+esc(sname(s-1))+'</button>':'<span></span>')
-    +(s<114?'<button class="btn" id="nextS">'+esc(sname(s+1))+' →</button>':'<button class="btn" id="finishQ">Finish</button>')+'</div></div>';
-  if(paged)h='<div class="phead" aria-hidden="true"><span class="ps">سورة '+esc(info[0])+'</span><span class="pj" id="pgJuz"></span></div>'
-    +'<div class="pager" id="pager">'+h+'</div><div class="pnum" id="pgNum" role="status" aria-live="polite"></div>'
+  let h='<div class="reader'+(ruled||paged?' snap':'')+'" id="reader">'+surahBody(s,showT,showL,ruled)+'</div>';
+  if(paged)h='<div class="mphead" aria-hidden="true"><span class="ps">سورة '+esc(info[0])+'</span><span class="pj" id="pgJuz"></span></div>'
+    +'<div class="pager" id="pager">'+h+'</div><div class="pgpill" id="pgNum" role="status" aria-live="polite"></div><div class="spine" id="spine" aria-hidden="true"></div>'
     +'<div class="sr-only"><button id="pgNext">Next page</button><button id="pgPrev">Previous page</button></div>';
   document.body.classList.toggle("paged",paged);
   $("#main").innerHTML=h;
@@ -791,6 +771,31 @@ function renderReader(s,a){
   refreshBanners();markSide();markPlaying(true);
 }
 
+
+function surahBody(s,showT,showL,ruled){
+  const info=S[s-1];const bm=new Set(st.bookmarks.map(b=>G(b.s,b.a)));
+  let h=surahHead(s);
+  if(AUDIO)h+='<div class="listen"><button class="btn ghost small" id="listenS"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>Listen to '+esc(info[1])+'</button></div>';
+  if(s!==1&&s!==9)h+='<div class="bism">'+esc(V[0][0][0])+'</div>';
+  const vs=V[s-1];const ipS=st.settings.script!=="uthmani";
+  const words=t=>t.split(" ").map(w=>'<span class="w">'+esc(w)+'</span>').join(" ");
+  const bmc=new Map(st.bookmarks.map(b=>[G(b.s,b.a),b.c]));
+  const anAttr=(i,g)=>(bm.has(g)?' bm" style="--bc:'+esc(bmc.get(g)||COLORS[0])+'"':'"')+' role="button" tabindex="0" aria-label="'+anLabel(i+1,bm.has(g))+'"';
+  const num=(i,g)=>(SAJ.has(s+":"+(i+1))?'<span class="sj" title="Ayah of prostration (sajdah)">۩</span>':"")+(ipS&&RUKU_END.has(g)?'<span class="rk" title="End of ruku" aria-label="End of ruku">ع</span>':"")+(ipS?'<span class="an ip'+anAttr(i,g)+'>۝'+AD(i+1)+esc(vs[i][4]||"")+'</span>':'<span class="an'+anAttr(i,g)+'>'+AD(i+1)+'</span>');
+  if(!showT&&!showL){
+    h+='<div class="mushaf'+(ruled?' ruled':'')+'">';
+    vs.forEach((v,i)=>{const g=OFF[s-1]+i;h+=jzMark(g,true)+'<span class="ay" data-g="'+g+'" id="a'+(i+1)+'">'+words(v[0])+" "+num(i,g)+'</span> '+pendMark(g);});
+    h+='</div>';
+  }else{
+    vs.forEach((v,i)=>{const g=OFF[s-1]+i;
+      h+=jzMark(g,false)+'<div class="ayblock ay" data-g="'+g+'" id="a'+(i+1)+'">'
+      +'<div class="mushaf"><span class="ameta"><button class="ib" data-menu="'+g+'" aria-label="Options for ayah '+s+':'+(i+1)+'"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></button><span class="ref">'+s+":"+(i+1)+'</span></span>'+words(v[0])+" "+num(i,g)+'</div>'
+      +(showL?'<div class="translit">'+esc(v[2])+'</div>':"")+(showT?meaningHTML(v):"")+'</div>'+pendMark(g);});
+  }
+  h+='<div class="endnav">'+(s>1?'<button class="btn ghost" id="prevS">← '+esc(sname(s-1))+'</button>':'<span></span>')
+    +(s<114?'<button class="btn" id="nextS">'+esc(sname(s+1))+' →</button>':'<button class="btn" id="finishQ">Finish</button><a class="btn ghost" href="#dua" lang="ar">دعاء ختم القرآن الكريم</a>')+'</div>';
+  return h;
+}
 
 /* ---------- Mushaf pages: one screen = one page of the 604-page Madinah Mushaf ---------- */
 function surahHead(s){const info=S[s-1];
@@ -879,6 +884,58 @@ function turnPage(d){
     if(e.key==="ArrowLeft"){e.preventDefault();turnPage(1);}else if(e.key==="ArrowRight"){e.preventDefault();turnPage(-1);}});
 })();
 
+
+/* ---------- Book page numbers: 1 … N across the whole Quran for the current font size and screen ---------- */
+// Each surah's page count is measured with exactly the same markup and page size as the reader,
+// in the background, and remembered per layout so rotating back or reopening is instant.
+const BK={sig:null,counts:null,gen:0};
+let MZ=null;
+function layoutSig(){const R=$("#reader");return [st.settings.qsize,lhPx(),st.settings.script,st.settings.weight,!!st.settings.showTrans,!!st.settings.showTranslit,tl(),
+  R?R.clientWidth:0,R?R.style.height:"",AUDIO?1:0,(planInfo()||{}).dayEnd||0].join("|");}
+function bkLoad(sig){try{const c=JSON.parse(localStorage.getItem("qr-book-pages")||"{}");return c[sig]||null;}catch(e){return null;}}
+function bkStore(sig,counts){try{const c=JSON.parse(localStorage.getItem("qr-book-pages")||"{}");c[sig]=counts;const ks=Object.keys(c);while(ks.length>8)delete c[ks.shift()];localStorage.setItem("qr-book-pages",JSON.stringify(c));}catch(e){}}
+function countPages(s){
+  const P=$("#pager"),RR=$("#reader");if(!P||!RR||!PG)return null;
+  if(!MZ){MZ=document.createElement("div");MZ.className="pager";MZ.setAttribute("aria-hidden","true");MZ.innerHTML='<div class="reader snap"></div>';document.body.appendChild(MZ);}
+  const r0=P.getBoundingClientRect();
+  MZ.style.cssText="position:fixed;top:0;left:-300vw;visibility:hidden;pointer-events:none;margin:0;width:"+r0.width+"px;height:"+P.style.height;
+  const R=MZ.firstChild;R.style.cssText="height:"+RR.style.height+";column-width:"+RR.style.columnWidth+";column-gap:"+RR.style.columnGap;
+  R.innerHTML=surahBody(s,!!st.settings.showTrans,!!st.settings.showTranslit,false).replace(/ id="[^"]*"/g,"");
+  snapBlocks(R);
+  const pr=MZ.getBoundingClientRect().right-(parseFloat(getComputedStyle(R).paddingRight)||0);
+  const last=R.lastElementChild,rs=last&&last.getClientRects();
+  const n=!rs||!rs.length?1:Math.max(0,Math.floor((pr-rs[rs.length-1].right+2)/PG.step))+1;
+  R.innerHTML=""; // leave nothing behind: other code looks for ayahs across the whole page
+  return n;
+}
+function bookPages(){
+  const sig=layoutSig();if(sig===BK.sig&&BK.counts)return;
+  BK.sig=sig;BK.gen++;const gen=BK.gen;const cached=bkLoad(sig);
+  if(cached&&cached.length===114&&cached.every(n=>n>0)){BK.counts=cached;updatePill();return;}
+  BK.counts=new Array(114).fill(0);updatePill();
+  const fontsOk=!document.fonts||document.fonts.status==="loaded";
+  if(!fontsOk){document.fonts.ready.then(()=>{if(gen===BK.gen){BK.sig=null;bookPages();}});return;}
+  let s=1;const step=()=>{
+    if(gen!==BK.gen||view!=="read"||!PG)return;
+    const t0=performance.now();
+    while(s<=114&&performance.now()-t0<14){BK.counts[s-1]=s===cur.s?PG.total:countPages(s);s++;}
+    updatePill();
+    if(s<=114)setTimeout(step,0);else{BK.counts[cur.s-1]=PG.total;bkStore(sig,BK.counts.slice());}
+  };
+  setTimeout(step,30);
+}
+function updatePill(){
+  const pn=$("#pgNum");if(!pn||!PG)return;
+  const c=BK.counts&&BK.sig===layoutSig()?BK.counts:null;
+  let before=null,total=null;
+  if(c){let ok=true,sum=0;for(let i=0;i<cur.s-1;i++){if(!c[i]){ok=false;break;}sum+=c[i];}if(ok)before=sum;
+    if(c.every((n,i)=>n>0||i===cur.s-1))total=c.reduce((a,n,i)=>a+(i===cur.s-1?PG.total:n),0);}
+  const n=before!=null?before+PG.k+1:null;
+  pn.textContent=(n!=null?n:"…")+" / "+(total!=null?total:"…");
+  pn.setAttribute("aria-label",n!=null&&total!=null?"Page "+n+" of "+total:"Counting pages");
+  const sp=$("#spine");if(sp)sp.className="spine "+((n!=null?n:PG.k+1)%2?"l":"r");
+}
+
 /* ---------- page mode (reads like a mushaf: swipe to turn pages) ---------- */
 let PG=null,swipeAt=0;
 // Give headings and markers a height that is a whole number of lines, so text sits on the ruled lines.
@@ -900,7 +957,7 @@ function layoutPages(anchor,flash){
   const nav=$("nav.tabs"),navOn=getComputedStyle(nav).display!=="none"&&!matchMedia("(min-width:1100px)").matches;
   const bottomUI=(navOn?nav.getBoundingClientRect().height:0)
     +(document.body.classList.contains("has-player")?$("#player").getBoundingClientRect().height:0)+(document.body.classList.contains("focus")?parseFloat(getComputedStyle(document.documentElement).paddingBottom)||0:0);
-  const avail=innerHeight-P.getBoundingClientRect().top-B.getBoundingClientRect().height-bottomUI-4;
+  const avail=Math.round(innerHeight-P.getBoundingClientRect().top-52-bottomUI-4); // fixed room for the page-number pill: same settings → same pages
   const H=Math.max(lh*3,Math.floor(avail/lh)*lh);
   P.style.height=(H+frame)+"px";R.style.height=H+"px";
   const cs=getComputedStyle(R);const pl=parseFloat(cs.paddingLeft)||0,pr=parseFloat(cs.paddingRight)||0;
@@ -910,7 +967,8 @@ function layoutPages(anchor,flash){
   const pRect=P.getBoundingClientRect();
   PG={k:0,step:colW+gap,pr:pRect.right-(frame/2)-pr,total:1,since:Date.now()};
   const last=R.lastElementChild,lr=last&&last.getClientRects();PG.total=lr&&lr.length?pageOfRect(lr[lr.length-1])+1:1;
-  const k=anchor&&anchor.s===cur.s?pageOfAyah(anchor.a):0;PG.anchor=anchor&&anchor.s===cur.s?{s:anchor.s,a:anchor.a}:null;goPage(k,false,true);
+  const k=anchor&&anchor.s===cur.s&&anchor.a>1?pageOfAyah(anchor.a):0;PG.anchor=anchor&&anchor.s===cur.s?{s:anchor.s,a:anchor.a}:null;goPage(k,false,true);
+  bookPages();
   if(flash&&anchor){const el=document.getElementById("a"+anchor.a);if(el){el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1600);}}
 }
 function goPage(k,anim,keepAnchor){
@@ -918,7 +976,7 @@ function goPage(k,anim,keepAnchor){
   if(k!==PG.k)PG.since=Date.now();PG.k=k;
   const R=$("#reader");const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   R.style.transition=anim&&!reduce?"transform .3s cubic-bezier(.2,.7,.3,1)":"none";R.style.transform="translateX("+(k*PG.step)+"px)";
-  const pn=$("#pgNum");pn.textContent=k+1;pn.setAttribute("aria-label","Page "+(k+1)+" of "+PG.total);pn.title="Page "+(k+1)+" of "+PG.total;
+  updatePill();
   $("#pgPrev").disabled=k===0&&cur.s===1;$("#pgNext").disabled=k===PG.total-1&&cur.s===114;
   const pb=$("#prog");if(pb)pb.style.width=((k+1)/PG.total*100)+"%";
   // A page turn makes its first ayah the new anchor; a re-layout keeps the ayah that was asked for.

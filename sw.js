@@ -1,7 +1,7 @@
 // Yours Quran Reader service worker. The Quran text, translations, word data and font are cached
 // on the first visit so reading works offline. Recitation audio is streamed and needs a connection.
-const V="yqr-6b705760e4";
-const CORE=["/","/manifest.webmanifest","/icons/icon-192.png","/icons/icon-512.png","/fonts/indopak.woff2?v=6b705760e4","/data/meta.json?v=6b705760e4","/data/ip.json?v=6b705760e4","/data/en.json?v=6b705760e4","/data/tr.json?v=6b705760e4","/data/ur.json?v=6b705760e4","/data/wbw.json?v=6b705760e4"];
+const V="yqr-cdf38b28a5";
+const CORE=["/","/manifest.webmanifest","/icons/icon-192.png","/icons/icon-512.png","/fonts/indopak.woff2?v=cdf38b28a5","/data/meta.json?v=cdf38b28a5","/data/ip.json?v=cdf38b28a5","/data/en.json?v=cdf38b28a5","/data/tr.json?v=cdf38b28a5","/data/ur.json?v=cdf38b28a5","/data/wbw.json?v=cdf38b28a5"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()));});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k!=="yqr-runtime").map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener("fetch",e=>{
