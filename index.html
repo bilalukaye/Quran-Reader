@@ -25,14 +25,14 @@
 <meta property="og:url" content="__SITE__/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="__SITE__/og.jpg">
-<link rel="preload" href="/fonts/indopak.woff2?v=43b3b3ac96" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/data/meta.json?v=43b3b3ac96" as="fetch" crossorigin>
-<link rel="preload" href="/data/ip.json?v=43b3b3ac96" as="fetch" crossorigin>
+<link rel="preload" href="/fonts/indopak.woff2?v=ecc2b1bda0" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/data/meta.json?v=ecc2b1bda0" as="fetch" crossorigin>
+<link rel="preload" href="/data/ip.json?v=ecc2b1bda0" as="fetch" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Noto+Nastaliq+Urdu:wght@400&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:"IndoPak Nastaleeq";src:url(/fonts/indopak.woff2?v=43b3b3ac96) format("woff2");font-display:block}
+@font-face{font-family:"IndoPak Nastaleeq";src:url(/fonts/indopak.woff2?v=ecc2b1bda0) format("woff2");font-display:block}
 :root{
   --paper:#F7F3EA; --surface:#F7F3EA; --sunk:#EDE6D7; --ink:#1F1C17; --muted:#68625A;
   --pri:#1F5C48; --pri-soft:#E3EBE2; --gold:#98712A; --gold-soft:#EFE4C8; --teal:#3B7759;
@@ -393,7 +393,7 @@ body.paged main{padding-bottom:0}
 @media (max-width:599px){.reader.mp .mushaf{text-align:right}}
 @media (min-width:600px){.reader.mp .mushaf{text-align:justify;text-align-last:right}}
 .reader.mp .cartouche{margin-top:10px}
-.mphead{display:flex;justify-content:space-between;align-items:center;max-width:920px;margin:0 auto;padding:0 22px;height:34px;box-sizing:border-box;overflow:hidden;direction:rtl;line-height:1.2}
+.mphead{display:flex;justify-content:space-between;align-items:center;max-width:920px;margin:0 auto;padding:0 22px;height:28px;box-sizing:border-box;overflow:hidden;direction:rtl;line-height:1.2}
 .mphead .ps{font-family:var(--q);font-size:19px;color:var(--gold)}
 .mphead .pj{font-family:var(--ar);font-size:16px;color:var(--muted)}
 .pgend{display:flex;flex-direction:column;align-items:center;gap:10px;margin:26px 0 6px;color:var(--muted);font-size:13px}
@@ -462,6 +462,28 @@ body.has-player .catch{bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px)
 .player .pseek::-moz-range-track{height:3px;background:color-mix(in srgb,var(--gold) 35%,transparent)}
 .player .pseek::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--gold);margin-top:-5.5px}
 .player .pseek::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--gold)}
+/* ===== compact page frame: the page number and next-page word share one slim row ===== */
+.mphead .ps{font-size:17px}.mphead .pj{font-size:14px}
+.pgpill{min-height:0;padding:2px 10px;font-size:13px;line-height:20px;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;
+  bottom:calc(var(--navfull,var(--navh)) + 4px)}
+body.has-player .pgpill{bottom:calc(var(--navfull,var(--navh)) + 66px)}
+.catch{bottom:calc(var(--navfull,var(--navh)) + 2px);font-size:calc(var(--qsize) * .48)}
+body.has-player .catch{bottom:calc(var(--navfull,var(--navh)) + 64px)}
+/* surah frame compact enough to take one line on a page, with Listen inside it */
+.reader.snap .cartouche{padding:4px 8px 3px}
+.reader.snap .cartouche .md{width:54px;padding:1px 0;font-size:10.5px;line-height:1.2}
+.reader.snap .cartouche .md b{font-size:13px}
+.reader.snap .cartouche .ar{font-size:clamp(22px,6vw,29px);line-height:1.3}
+.reader.snap .cartouche .en{font-size:11px;margin-top:0;line-height:1.3}
+.reader.snap .listen{height:0!important;margin:0;position:relative;z-index:2}
+.reader.snap .listen .btn{position:absolute;left:14px;top:-31px;width:28px;height:28px;min-height:0;padding:0;border-radius:50%;font-size:0;gap:0;justify-content:center;background:var(--read-bg)}
+.reader.snap .listen .btn svg{width:12px;height:12px;margin-left:2px}
+@media (orientation:landscape) and (max-height:500px){body.paged .top .title b{font-size:15px;line-height:1.2}body.paged .top .title small#tsp{font-size:11px;line-height:1.2}}
+/* ===== bookmark visual: an open Quran with a ribbon ===== */
+.bmq{width:28px;height:28px;flex:none;fill:none;stroke:var(--pri);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bmill{display:block;width:132px;height:104px;margin:10px auto 6px}
+/* ===== ayah story: tafsir scenes are longer, so smaller and scrollable ===== */
+.story .scene.tf .stx{font-size:clamp(15px,3.9vw,18px);line-height:1.65;text-align:start;max-height:58vh;overflow:auto;white-space:pre-line}
 </style>
 </head>
 <body>
@@ -483,12 +505,12 @@ body.has-player .catch{bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px)
 <nav class="tabs" id="tabs">
   <a href="#read" data-v="read"><svg viewBox="0 0 24 24"><path d="M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5zM12 6v13"/></svg>Read</a>
   <a href="#today" data-v="today"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Today</a>
-  <a href="#bookmarks" data-v="bookmarks"><svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-4-5 4z"/></svg>Bookmarks</a>
+  <a href="#bookmarks" data-v="bookmarks"><svg viewBox="0 0 24 24"><path d="M12 7.3C9.9 5.8 7 5.4 3.5 5.9v11.4c3.5-.5 6.4-.1 8.5 1.4 2.1-1.5 5-1.9 8.5-1.4V5.9C17 5.4 14.1 5.8 12 7.3z"/><path d="M12 7.3v11.4"/><path d="M14.7 6.4v7l1.35-1.1 1.35 1.1V6.05" fill="currentColor"/></svg>Bookmarks</a>
   <a href="#more" data-v="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>More</a>
 </nav>
 <div id="layer"></div>
 
-<script>window.QR_CFG={data:"/data/",ver:"43b3b3ac96",audio:true,ai:__AI__};</script>
+<script>window.QR_CFG={data:"/data/",ver:"ecc2b1bda0",audio:true,ai:__AI__};</script>
 <script>
 (async function(){
 "use strict";
@@ -652,7 +674,9 @@ function speak(text,lang,rate){
 /* ---------- small helpers ---------- */
 const scripts={};
 function loadScript(src){return scripts[src]||(scripts[src]=new Promise((res,rej)=>{const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=()=>{delete scripts[src];rej(new Error("load"));};document.head.appendChild(s);}));}
-function setNavH(){const n=$("nav.tabs");if(!n)return;const desk=matchMedia("(min-width:1100px)").matches;document.documentElement.style.setProperty("--navh",(desk?0:n.getBoundingClientRect().height-(parseFloat(getComputedStyle(n).paddingBottom)||0))+"px");}
+function setNavH(){const n=$("nav.tabs");if(!n)return;const desk=matchMedia("(min-width:1100px)").matches,h=n.getBoundingClientRect().height;
+  document.documentElement.style.setProperty("--navh",(desk?0:h-(parseFloat(getComputedStyle(n).paddingBottom)||0))+"px");
+  document.documentElement.style.setProperty("--navfull",(desk?0:h)+"px");} // the tab bar's real height, including the phone's safe area
 addEventListener("resize",setNavH);
 // iOS Safari would zoom the whole page on a pinch; in the reader the pinch resizes the Quran text instead.
 document.addEventListener("gesturestart",e=>{if(view==="read")e.preventDefault();});
@@ -992,7 +1016,7 @@ function updatePill(){
 let PG=null,swipeAt=0;
 // Give headings and markers a height that is a whole number of lines, so text sits on the ruled lines.
 function snapBlocks(R,lh0){const lh=lh0||lhPx();
-  R.querySelectorAll(".cartouche,.listen,.bism,.endnav").forEach(el=>{el.style.height="";const h=el.getBoundingClientRect().height;el.style.height=Math.max(1,Math.ceil((h-1)/lh))*lh+"px";});}
+  R.querySelectorAll(".cartouche,.bism,.endnav").forEach(el=>{el.style.height="";const h=el.getBoundingClientRect().height;el.style.height=Math.max(1,Math.ceil((h-1)/lh))*lh+"px";});}
 // Positions are measured against where the pages actually are — also while a page turn is still animating.
 // measured once per update (asking the browser for it hundreds of times would slow long surahs and delay the recitation)
 let _tx=null;
@@ -1006,7 +1030,7 @@ function firstAyahOnPage(k){let cont=null;
     if(p0>k)break;}
   return cont;}
 function layoutPages(anchor,flash){
-  const P=$("#pager"),R=$("#reader"),B=$("#pgNum");if(!P||!R)return;window.scrollTo(0,0);
+  const P=$("#pager"),R=$("#reader"),B=$("#pgNum");if(!P||!R)return;window.scrollTo(0,0);setNavH();
   const lh=lhPx();document.documentElement.style.setProperty("--lhpx",lh+"px");
   R.style.transition="none";R.style.transform="none";R.style.columnWidth="";R.style.height="";_tx=null;
   const pcs=getComputedStyle(P),px=v=>parseFloat(v)||0;
@@ -1015,11 +1039,18 @@ function layoutPages(anchor,flash){
   const nav=$("nav.tabs"),navOn=getComputedStyle(nav).display!=="none"&&!matchMedia("(min-width:1100px)").matches;
   const bottomUI=(navOn?nav.getBoundingClientRect().height:0)
     +(document.body.classList.contains("has-player")?$("#player").getBoundingClientRect().height:0)+(document.body.classList.contains("focus")?parseFloat(getComputedStyle(document.documentElement).paddingBottom)||0:0);
-  const avail=Math.round(innerHeight-P.getBoundingClientRect().top-(land?26:52)-bottomUI-4-frame); // fixed room for page number / next-page word: same settings → same pages
-  // Landscape: share the leftover height between the lines (at most 25% more spacing) so no empty band is left under the text.
-  let lhE=lh;if(land){const n=Math.max(1,Math.floor(avail/lh));lhE=Math.max(lh,Math.min(Math.floor(avail/n),Math.round(lh*1.25)));}
+  // One slim footer row holds the page number and the next page's first word. It may sit inside the empty
+  // lower margin of the last line (the space under the letters), so it no longer costs a whole line.
+  const FOOT=land?24:30,fsz=parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--qsize"))||34;
+  const OV=Math.max(0,Math.min(16,Math.floor((lh-fsz*1.3)/2)-4));
+  P.style.marginTop="0px";
+  const avail=Math.round(innerHeight-P.getBoundingClientRect().top-FOOT-bottomUI-frame+OV); // whole pixels: same settings → same pages
+  // As many whole lines as fit; any remainder is shared between the lines (never more than 8% wider spacing)
+  // and what is still left is split evenly above and below, so the page is balanced instead of empty at the bottom.
+  const nL=Math.max(1,Math.floor(avail/lh));
+  const lhE=Math.max(lh,Math.min(Math.floor(avail/nL),Math.round(lh*1.08)));
   R.style.setProperty("--lhpx",lhE+"px");
-  const H=Math.max(lhE*(land?1:3),Math.floor(avail/lhE)*lhE);
+  const H=nL*lhE;P.style.marginTop=Math.max(0,Math.floor((avail-H)/2))+"px";
   P.style.height=(H+frame)+"px";R.style.height=H+"px";
   const cs=getComputedStyle(R);const pl=parseFloat(cs.paddingLeft)||0,pr=parseFloat(cs.paddingRight)||0;
   const colW=Math.floor(R.clientWidth-pl-pr),gap=Math.round(pl+pr);
@@ -1158,7 +1189,7 @@ async function wordSheet(w){
      sh.querySelector("#sa").onclick=()=>{if(AUDIO)closeSheet().then(()=>playAyahs(s,a,true));else speak(v[0],"ar-SA",0.75);};
      sh.querySelector("#cw").onclick=()=>copy(word);sh.querySelector("#mo").onclick=()=>ayahSheet(g);},"Word "+word);
 }
-function icon(n){const p={play:'<path d="M8 5l11 7-11 7z"/>',spk:'<path d="M5 10v4h3l4 4V6L8 10z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/>',copy:'<rect x="8" y="8" width="11" height="12" rx="2"/><path d="M5 16V5a1 1 0 0 1 1-1h9"/>',dots:'<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>',bm:'<path d="M7 4h10v16l-5-4-5 4z"/>',chk:'<path d="M5 12l5 5 9-10"/>',share:'<path d="M12 4v11M7 9l5-5 5 5M5 14v5h14v-5"/>',book:'<path d="M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5zM12 6v13"/>'}[n];return '<svg viewBox="0 0 24 24">'+p+'</svg>';}
+function icon(n){const p={play:'<path d="M8 5l11 7-11 7z"/>',spk:'<path d="M5 10v4h3l4 4V6L8 10z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/>',copy:'<rect x="8" y="8" width="11" height="12" rx="2"/><path d="M5 16V5a1 1 0 0 1 1-1h9"/>',dots:'<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>',bm:'<path d="M12 7.3C9.9 5.8 7 5.4 3.5 5.9v11.4c3.5-.5 6.4-.1 8.5 1.4 2.1-1.5 5-1.9 8.5-1.4V5.9C17 5.4 14.1 5.8 12 7.3z"/><path d="M12 7.3v11.4"/><path d="M14.7 6.4v7l1.35-1.1 1.35 1.1V6.05" fill="currentColor"/>',story:'<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M10 9.2v5.6l4.6-2.8z"/>',chk:'<path d="M5 12l5 5 9-10"/>',share:'<path d="M12 4v11M7 9l5-5 5 5M5 14v5h14v-5"/>',book:'<path d="M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5zM12 6v13"/>'}[n];return '<svg viewBox="0 0 24 24">'+p+'</svg>';}
 async function ayahSheet(g){
   try{await needMeanings();}catch(e){return;}
   document.querySelectorAll(".ay.sel").forEach(x=>x.classList.remove("sel"));{const el=document.querySelector('#reader .ay[data-g="'+g+'"]');if(el)el.classList.add("sel");}
@@ -1170,12 +1201,14 @@ async function ayahSheet(g){
    +(AUDIO?'<button class="act" id="xp1">'+icon("play")+'Play this ayah</button><button class="act" id="xp2">'+icon("play")+'Play from here</button>':'<button class="act" id="x1">'+icon("spk")+'Hear the ayah</button>')
    +'<button class="act" id="x2">'+icon("bm")+(bi>=0?"Remove bookmark":"Bookmark")+'</button>'
    +'<button class="act" id="x3">'+icon("copy")+'Copy Arabic</button><button class="act" id="x4">'+icon("copy")+'Copy with meaning</button>'
+   +'<button class="act" id="xs">'+icon("story")+'Story &amp; meaning</button>'
    +'<button class="act" id="x5">'+icon("chk")+'Mark read up to here</button>'+(navigator.share?'<button class="act" id="x6">'+icon("share")+'Share</button>':'')
    +'<a class="act lnk" href="'+tafsirURL(s,a,"en-tafisr-ibn-kathir")+'" target="_blank" rel="noopener">'+icon("book")+'Tafsir Ibn Kathir</a>'
    +'<a class="act lnk" href="'+tafsirURL(s,a,"en-tafsir-maarif-ul-quran")+'" target="_blank" rel="noopener">'+icon("book")+'Ma’ariful Qur’an</a>'
    +'</div><p class="muted" style="font-size:12px;margin:10px 0 0">Tafsir opens on Quran.com. Translations are shown as translations of the meaning, not as the Quran itself.</p>',
    sh=>{
      const x1=sh.querySelector("#x1");if(x1)x1.onclick=()=>speak(v[0],"ar-SA",0.75);
+     sh.querySelector("#xs").onclick=()=>closeSheet().then(()=>playStory(s,a));
      const p1=sh.querySelector("#xp1");if(p1)p1.onclick=()=>closeSheet().then(()=>playAyahs(s,a,true));
      const p2=sh.querySelector("#xp2");if(p2)p2.onclick=()=>closeSheet().then(()=>playAyahs(s,a,false));
      sh.querySelector("#x2").onclick=()=>{if(bi>=0){closeSheet().then(()=>toggleBookmark(g));}else bookmarkSheet(s,a);};
@@ -1500,6 +1533,27 @@ function planSheet(){
 
 /* ---------- daily story player ---------- */
 const expP={};
+const TAFSIR_SHA="b6d01854b1b2e019e66cdaef6132e25521ee86f2",tfCache={};
+// Tafsir text for an ayah (hosted build). Commentary written for a group of ayahs is found by looking back to where the group starts.
+async function getTafsir(s,a){
+  if(!CFG)return null;
+  const ur=tl()==="ur",slug=ur?"ur-tafseer-ibn-e-kaseer":"en-tafisr-ibn-kathir",key=slug+s+":"+a;
+  if(key in tfCache)return tfCache[key];
+  try{
+    let text="",from=a;
+    for(let x=a;x>=Math.max(1,a-15);x--){const r=await fetch("https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@"+TAFSIR_SHA+"/tafsir/"+slug+"/"+s+"/"+x+".json");
+      if(!r.ok)break;const d=await r.json();const t0=String(d.text||"").trim();if(t0.length>=40){text=t0;from=x;break;}}
+    if(!text)return tfCache[key]=null;
+    // an excerpt of whole paragraphs, never cut in the middle of a sentence
+    const paras=text.split(/\n+/).map(p=>p.trim()).filter(Boolean);let ex="";
+    for(const p of paras){if(ex&&(ex.length+p.length)>650)break;ex+=(ex?"\n\n":"")+p;}
+    if(ex.length>900){const cut=ex.slice(0,900),m=Math.max(cut.lastIndexOf(ur?"۔":". "),cut.lastIndexOf("\n"));ex=m>200?cut.slice(0,m+1).trim():cut;}
+    const more=ex.length<text.length;
+    const title=(ur?"تفسیر ابن کثیر":"Tafsir Ibn Kathir (abridged)")+(from!==a?(ur?" · آیت "+s+":"+from+" سے":" · commentary from "+s+":"+from):"");
+    return tfCache[key]={scenes:[{k:title,t:ex+(more?" …":""),tafsir:1,ur:ur?1:0}],
+      credit:(ur?"Tafsir Ibn Kathir (Urdu)":"Tafsir Ibn Kathir, abridged English translation")+", as published on Quran.com"+(more?" — excerpt":"")};
+  }catch(e){return tfCache[key]=null;}
+}
 function getExplanation(s,a){
   const ck="qr-story2-"+s+":"+a;
   if(expP[ck])return expP[ck];
@@ -1640,7 +1694,7 @@ async function playStory(s,a){
   const drawBars=()=>{el.querySelector("#bars").innerHTML=storyState.scenes.map(()=> '<i><b></b></i>').join("");};
   function drawScene(){const sc=storyState.scenes[storyState.i];
     el.querySelector("#scene").innerHTML='<div class="scene"><div class="kicker">'+esc(sc.k)+'</div>'+(sc.ar?'<div class="sar">'+esc(sc.ar)+'</div>':'<div class="stx"'+(sc.cls?' style="font-style:italic"':sc.ur?' style="direction:rtl;font-family:&quot;Noto Nastaliq Urdu&quot;,serif;line-height:2.3"':'')+'>'+esc(sc.t)+'</div>')+'</div>';
-    el.querySelectorAll("#bars b").forEach((b,j)=>b.style.width=j<storyState.i?"100%":"0");if(storyState.narr)narrate();}
+    el.querySelectorAll("#bars b").forEach((b,j)=>b.style.width=j<storyState.i?"100%":"0");{const sn=el.querySelector(".scene");if(sn)sn.classList.toggle("tf",!!sc.tafsir);}if(storyState.narr)narrate();}
   function narrate(){const sc=storyState.scenes[storyState.i];if(storyAu)storyAu.pause();
     if(sc.ar&&AUDIO){try{speechSynthesis.cancel();}catch(e){}if(!storyAu)storyAu=new Audio();storyAu.src=recURL(s,a);storyAu.play().catch(()=>{});return;}
     if(sc.ar)speak(sc.ar,"ar-SA",0.75);else if(sc.cls)speechSynthesis.cancel();else if(sc.ur)speak(sc.t,"ur-PK",0.9);else speak(sc.t.replace(/[“”]/g,""),"en-US",0.95);}
@@ -1648,6 +1702,11 @@ async function playStory(s,a){
   function go(d){const n=storyState.i+d;if(n<0)return;if(n>=storyState.scenes.length){closeStory();return;}storyState.i=n;storyState.t=0;drawScene();}
   drawBars();drawScene();
   storyTimer=setInterval(()=>{if(!storyState||storyState.paused)return;storyState.t+=100;const sc=storyState.scenes[storyState.i];const p=Math.min(100,storyState.t/dur(sc)*100);const b=el.querySelectorAll("#bars b")[storyState.i];if(b)b.style.width=p+"%";if(storyState.t>=dur(sc))go(1);},100);
+  // Authentic commentary: Tafsir Ibn Kathir (English abridged / Urdu), as published on Quran.com, per ayah.
+  const tf=await getTafsir(s,a);
+  if(!storyState)return;
+  if(tf){storyState.scenes=storyState.scenes.concat(tf.scenes);drawBars();el.querySelectorAll("#bars b").forEach((b,j)=>b.style.width=j<storyState.i?"100%":"0");
+    el.querySelector("#sfoot").innerHTML=esc(tf.credit)+" · "+tafLink;}
   if(!st.settings.aiExp)return;
   const extra=await getExplanation(s,a);
   if(!storyState)return;
@@ -1664,10 +1723,10 @@ function renderBookmarks(){
   h+='<section class="tz-sec" style="padding-top:8px" aria-labelledby="bml"><h2 id="bml">Last read</h2><ul class="list"><li><button class="li" data-cont="1"><span class="num"><span>'+L.s+'</span></span><span class="mid"><b>'+esc(sname(L.s))+' '+L.s+':'+L.a+'</b><small>Juz '+juzOf(G(L.s,L.a))+' · saved automatically as you read</small></span></button></li></ul></section>';
   h+='<section class="tz-sec" aria-labelledby="bmh"><div class="tz-head"><h2 id="bmh">Your bookmarks'+(st.bookmarks.length?' <span class="muted" style="font-weight:400">'+st.bookmarks.length+'</span>':'')+'</h2>'
     +(st.bookmarks.length>1?'<button class="link" id="bmSort">'+(sort==="new"?"Sort by Quran order":"Sort by newest")+'</button>':'')+'</div>';
-  if(!st.bookmarks.length)h+='<p class="muted" style="margin:8px 0 0">No bookmarks yet. In the reader, tap an ayah number to place a ribbon. Tap it again to remove it, or press and hold for more options.</p>';
+  if(!st.bookmarks.length)h+='<p class="muted" style="margin:8px 0 0">'+'<svg class="bmill" viewBox="0 0 132 104" aria-hidden="true" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M66 26C54 17 37 15 16 18v54c21-3 38-1 50 8 12-9 29-11 50-8V18c-21-3-38-1-50 8z" fill="color-mix(in srgb,var(--gold) 8%,transparent)"/><path d="M66 26v54"/><path d="M26 30c12-1 24 1 32 5M26 40c12-1 24 1 32 5M26 50c12-1 24 1 32 5M74 35c8-4 20-6 32-5M74 45c8-4 20-6 32-5M74 55c8-4 20-6 32-5" stroke-width="1.2" opacity=".5"/><path d="M80 22v40l7-6 7 6V20" fill="#B32F25" stroke="#B32F25"/><path d="M40 100l52-14M92 100L40 86" stroke-width="3" stroke="var(--pri)"/></svg>'+'No bookmarks yet. In the reader, tap an ayah number to place a ribbon. Tap it again to remove it, or press and hold for more options.</p>';
   else{
     const items=st.bookmarks.map((b,i)=>({b,i}));if(sort==="quran")items.sort((x,y)=>G(x.b.s,x.b.a)-G(y.b.s,y.b.a));
-    h+='<ul class="list">'+items.map(({b,i})=>'<li class="bmrow"><button class="li" data-go="'+b.s+':'+b.a+'"><span class="bmdot" style="background:'+b.c+'"></span><span class="mid"><b>'+esc(sname(b.s))+' '+b.s+':'+b.a+'</b><small>'+(b.note?esc(b.note)+" · ":"")+new Date(b.t).toLocaleDateString(undefined,{day:"numeric",month:"short"})+'</small></span><span class="arn" aria-hidden="true" style="font-family:var(--q);font-size:18px;max-width:38%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;direction:rtl">'+esc(V[b.s-1][b.a-1][0])+'</span></button><button class="ib" data-edit="'+i+'" aria-label="Edit bookmark '+b.s+':'+b.a+'">'+pen+'</button><button class="ib" data-del="'+i+'" aria-label="Delete bookmark '+b.s+':'+b.a+'">'+del+'</button></li>').join("")+'</ul>';
+    h+='<ul class="list">'+items.map(({b,i})=>'<li class="bmrow"><button class="li" data-go="'+b.s+':'+b.a+'"><svg class="bmq" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.3C9.9 5.8 7 5.4 3.5 5.9v11.4c3.5-.5 6.4-.1 8.5 1.4 2.1-1.5 5-1.9 8.5-1.4V5.9C17 5.4 14.1 5.8 12 7.3z"/><path d="M12 7.3v11.4"/><path d="M14.7 6.4v7l1.35-1.1 1.35 1.1V6.05" style="fill:'+b.c+';stroke:'+b.c+'"/></svg><span class="mid"><b>'+esc(sname(b.s))+' '+b.s+':'+b.a+'</b><small>'+(b.note?esc(b.note)+" · ":"")+new Date(b.t).toLocaleDateString(undefined,{day:"numeric",month:"short"})+'</small></span><span class="arn" aria-hidden="true" style="font-family:var(--q);font-size:18px;max-width:38%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;direction:rtl">'+esc(V[b.s-1][b.a-1][0])+'</span></button><button class="ib" data-edit="'+i+'" aria-label="Edit bookmark '+b.s+':'+b.a+'">'+pen+'</button><button class="ib" data-del="'+i+'" aria-label="Delete bookmark '+b.s+':'+b.a+'">'+del+'</button></li>').join("")+'</ul>';
   }
   h+='</section></div>';$("#main").innerHTML=h;
   const so=$("#bmSort");if(so)so.onclick=()=>{st.bmSort=sort==="new"?"quran":"new";save();renderBookmarks();};
