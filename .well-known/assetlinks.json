@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.yours_quran_reader.twa",
+        "sha256_cert_fingerprints": ["81:96:92:46:83:2E:29:AF:3C:2A:A1:2E:E5:83:50:44:EC:31:34:AE:8E:B6:89:F3:01:78:48:A4:69:78:BE:B7"]
+      }
+    }]
