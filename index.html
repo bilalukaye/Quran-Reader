@@ -25,14 +25,14 @@
 <meta property="og:url" content="__SITE__/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="__SITE__/og.jpg">
-<link rel="preload" href="/fonts/indopak.woff2?v=cdf38b28a5" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/data/meta.json?v=cdf38b28a5" as="fetch" crossorigin>
-<link rel="preload" href="/data/ip.json?v=cdf38b28a5" as="fetch" crossorigin>
+<link rel="preload" href="/fonts/indopak.woff2?v=43b3b3ac96" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/data/meta.json?v=43b3b3ac96" as="fetch" crossorigin>
+<link rel="preload" href="/data/ip.json?v=43b3b3ac96" as="fetch" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Noto+Nastaliq+Urdu:wght@400&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:"IndoPak Nastaleeq";src:url(/fonts/indopak.woff2?v=cdf38b28a5) format("woff2");font-display:block}
+@font-face{font-family:"IndoPak Nastaleeq";src:url(/fonts/indopak.woff2?v=43b3b3ac96) format("woff2");font-display:block}
 :root{
   --paper:#F7F3EA; --surface:#F7F3EA; --sunk:#EDE6D7; --ink:#1F1C17; --muted:#68625A;
   --pri:#1F5C48; --pri-soft:#E3EBE2; --gold:#98712A; --gold-soft:#EFE4C8; --teal:#3B7759;
@@ -423,13 +423,52 @@ body.focus .pgpill{bottom:calc(env(safe-area-inset-bottom,0px) + 10px)}
 .dua .hd{font-family:var(--ar);font-size:clamp(21px,5.6vw,26px);line-height:2.05;direction:rtl;text-align:right;margin:10px 0 0;color:var(--ink)}
 .dua .card{background:color-mix(in srgb,var(--gold) 6%,var(--surface))}
 .dua .tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+/* ===== Mushaf style (optional): presentation only — the Quran font, size and line spacing are untouched ===== */
+body.mmode[data-view="read"]{background:radial-gradient(130% 95% at 50% 42%,transparent 58%,rgba(110,80,30,.08)),var(--read-bg)}
+body.mmode .pager{border:1.5px solid var(--gold);padding:5px 3px;margin:2px 10px 0;border-radius:3px;
+  box-shadow:inset 0 0 0 3px var(--read-bg),inset 0 0 0 4px color-mix(in srgb,var(--gold) 50%,transparent);background-color:color-mix(in srgb,var(--gold) 4%,var(--read-bg))}
+body.mmode .pager::before{content:"";position:absolute;inset:7px;pointer-events:none;opacity:.55;
+  background:radial-gradient(circle,var(--gold) 0 2.2px,transparent 2.7px) left top/10px 10px no-repeat,radial-gradient(circle,var(--gold) 0 2.2px,transparent 2.7px) right top/10px 10px no-repeat,
+  radial-gradient(circle,var(--gold) 0 2.2px,transparent 2.7px) left bottom/10px 10px no-repeat,radial-gradient(circle,var(--gold) 0 2.2px,transparent 2.7px) right bottom/10px 10px no-repeat}
+body.mmode .mphead{padding:0 24px}
+body.mmode .mphead .ps,body.mmode .mphead .pj{color:var(--gold)}
+body.mmode .reader .cartouche{box-shadow:inset 0 0 0 3px var(--read-bg),inset 0 0 0 4px var(--gold),inset 0 0 0 7px var(--read-bg),inset 0 0 0 8px color-mix(in srgb,var(--gold) 40%,transparent);
+  background:color-mix(in srgb,var(--gold) 11%,var(--read-bg))}
+body.mmode .reader .cartouche .md{border-width:1.5px;background:color-mix(in srgb,var(--gold) 9%,var(--read-bg))}
+body.mmode .reader .an:not(.ip){border-width:2px;box-shadow:0 0 0 2px var(--read-bg),0 0 0 3.5px color-mix(in srgb,var(--gold) 60%,transparent)}
+body.mmode .bism{color:var(--gold)}
+/* ===== first word of the next page (a reading aid only; not part of this page's text) ===== */
+.catch{position:fixed;left:calc(var(--sal) + 24px);bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px) + 12px);z-index:18;pointer-events:none;
+  font-family:var(--q);font-size:calc(var(--qsize) * .52);line-height:1.4;color:var(--gold);opacity:.9;direction:rtl;white-space:nowrap;max-width:34vw;overflow:hidden}
+.catch:not(:empty)::before{content:"";display:inline-block;width:14px;height:0;border-top:1px solid currentColor;opacity:.5;margin:0 6px;vertical-align:middle}
+body:not(.paged) .catch,body.focus .catch{display:none}
+body.has-player .catch{bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px) + 74px)}
+#tsp{display:none}
+/* ===== landscape phones: give the height to the Quran text ===== */
+@media (orientation:landscape) and (max-height:500px){
+  body.paged header.top{min-height:42px;padding-top:0;padding-bottom:0}
+  body.paged .mphead,body.paged .pgpill{display:none}
+  body.paged .top .title small#tsp{display:block}
+  nav.tabs a{flex-direction:row;justify-content:center;gap:6px;padding:5px 0;font-size:12px}
+  nav.tabs a svg{width:19px;height:19px}
+  .catch{bottom:calc(var(--navh) + env(safe-area-inset-bottom,0px) + 3px)}
+}
+/* keep small updates (player, page labels) from forcing the whole page of text to be laid out again */
+.pager{contain:layout paint}
+.player,.pgpill,.catch{contain:layout style paint}
+/* recitation seek bar */
+.player .pseek{position:absolute;left:0;right:0;top:-10px;width:100%;height:20px;margin:0;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer}
+.player .pseek::-webkit-slider-runnable-track{height:3px;background:color-mix(in srgb,var(--gold) 35%,transparent)}
+.player .pseek::-moz-range-track{height:3px;background:color-mix(in srgb,var(--gold) 35%,transparent)}
+.player .pseek::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--gold);margin-top:-5.5px}
+.player .pseek::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--gold)}
 </style>
 </head>
 <body>
 <header class="top" id="top">
   <button class="ib hidden" id="btnBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
   <button class="ib" id="btnSurahs" aria-label="Surahs and juz"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-  <button class="title" id="topTitle" aria-label="Choose a surah or juz"><b id="tt">Quran</b><small id="ts"></small></button>
+  <button class="title" id="topTitle" aria-label="Choose a surah or juz"><b id="tt">Quran</b><small id="ts"></small><small id="tsp" aria-hidden="true"></small></button>
   <button class="ib zoom" id="zOut" aria-label="Smaller text">A−</button>
   <button class="ib zoom" id="zIn" aria-label="Larger text" style="font-size:19px">A+</button>
   <button class="ib" id="btnSearch" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
@@ -449,7 +488,7 @@ body.focus .pgpill{bottom:calc(env(safe-area-inset-bottom,0px) + 10px)}
 </nav>
 <div id="layer"></div>
 
-<script>window.QR_CFG={data:"/data/",ver:"cdf38b28a5",audio:true,ai:__AI__};</script>
+<script>window.QR_CFG={data:"/data/",ver:"43b3b3ac96",audio:true,ai:__AI__};</script>
 <script>
 (async function(){
 "use strict";
@@ -744,7 +783,7 @@ function renderReader(s,a){
   const bm=new Set(st.bookmarks.map(b=>G(b.s,b.a)));
   const paged=PAGED(),ruled=false;
   let h='<div class="reader'+(ruled||paged?' snap':'')+'" id="reader">'+surahBody(s,showT,showL,ruled)+'</div>';
-  if(paged)h='<div class="mphead" aria-hidden="true"><span class="ps">سورة '+esc(info[0])+'</span><span class="pj" id="pgJuz"></span></div>'
+  if(paged)h='<div class="catch" id="pgCatch" aria-hidden="true"></div><div class="mphead" aria-hidden="true"><span class="ps">سورة '+esc(info[0])+'</span><span class="pj" id="pgJuz"></span></div>'
     +'<div class="pager" id="pager">'+h+'</div><div class="pgpill" id="pgNum" role="status" aria-live="polite"></div><div class="spine" id="spine" aria-hidden="true"></div>'
     +'<div class="sr-only"><button id="pgNext">Next page</button><button id="pgPrev">Previous page</button></div>';
   document.body.classList.toggle("paged",paged);
@@ -891,7 +930,7 @@ function turnPage(d){
 const BK={sig:null,counts:null,gen:0};
 let MZ=null;
 function layoutSig(){const R=$("#reader");return [st.settings.qsize,lhPx(),st.settings.script,st.settings.weight,!!st.settings.showTrans,!!st.settings.showTranslit,tl(),
-  R?R.clientWidth:0,R?R.style.height:"",AUDIO?1:0,(planInfo()||{}).dayEnd||0].join("|");}
+  R?R.clientWidth:0,R?R.style.height:"",R?R.style.getPropertyValue("--lhpx"):"",st.settings.mushafStyle?1:0,AUDIO?1:0,(planInfo()||{}).dayEnd||0].join("|");}
 function bkLoad(sig){try{const c=JSON.parse(localStorage.getItem("qr-book-pages")||"{}");return c[sig]||null;}catch(e){return null;}}
 function bkStore(sig,counts){try{const c=JSON.parse(localStorage.getItem("qr-book-pages")||"{}");c[sig]=counts;const ks=Object.keys(c);while(ks.length>8)delete c[ks.shift()];localStorage.setItem("qr-book-pages",JSON.stringify(c));}catch(e){}}
 function countPages(s){
@@ -899,10 +938,11 @@ function countPages(s){
   if(!MZ){MZ=document.createElement("div");MZ.className="pager";MZ.setAttribute("aria-hidden","true");MZ.innerHTML='<div class="reader snap"></div>';document.body.appendChild(MZ);}
   const r0=P.getBoundingClientRect();
   MZ.style.cssText="position:fixed;top:0;left:-300vw;visibility:hidden;pointer-events:none;margin:0;width:"+r0.width+"px;height:"+P.style.height;
-  const R=MZ.firstChild;R.style.cssText="height:"+RR.style.height+";column-width:"+RR.style.columnWidth+";column-gap:"+RR.style.columnGap;
+  const R=MZ.firstChild;R.style.cssText="height:"+RR.style.height+";column-width:"+RR.style.columnWidth+";column-gap:"+RR.style.columnGap+";--lhpx:"+RR.style.getPropertyValue("--lhpx");
   R.innerHTML=surahBody(s,!!st.settings.showTrans,!!st.settings.showTranslit,false).replace(/ id="[^"]*"/g,"");
-  snapBlocks(R);
-  const pr=MZ.getBoundingClientRect().right-(parseFloat(getComputedStyle(R).paddingRight)||0);
+  snapBlocks(R,parseFloat(RR.style.getPropertyValue("--lhpx"))||lhPx());
+  const mcs=getComputedStyle(MZ);
+  const pr=MZ.getBoundingClientRect().right-(parseFloat(mcs.borderRightWidth)||0)-(parseFloat(mcs.paddingRight)||0)-(parseFloat(getComputedStyle(R).paddingRight)||0);
   const last=R.lastElementChild,rs=last&&last.getClientRects();
   const n=!rs||!rs.length?1:Math.max(0,Math.floor((pr-rs[rs.length-1].right+2)/PG.step))+1;
   R.innerHTML=""; // leave nothing behind: other code looks for ayahs across the whole page
@@ -924,6 +964,17 @@ function bookPages(){
   };
   setTimeout(step,30);
 }
+const LAND=()=>matchMedia("(orientation: landscape) and (max-height: 500px)").matches;
+// The first word of the next page, shown under the current page (like the catchword of a printed mushaf).
+function nextFirstWord(k){
+  // Words are laid out in reading order, so the first word placed on page k+1 is found by a binary search.
+  if(!PG||k>=PG.total-1)return "";const R=$("#reader");if(!R)return "";
+  const ws=R.querySelectorAll(".w");const pg=i=>{const r=ws[i].getClientRects()[0];return r?pageOfRect(r):-1;};
+  let lo=0,hi=ws.length;while(lo<hi){const m=(lo+hi)>>1;if(pg(m)>=k+1)hi=m;else lo=m+1;}
+  for(let i=lo;i<ws.length;i++){if(MARKRE.test(ws[i].textContent))continue;return pg(i)===k+1?ws[i].textContent:"";}
+  return "";
+}
+function updateCatch(){const c=$("#pgCatch");if(c&&PG)c.textContent=nextFirstWord(PG.k);}
 function updatePill(){
   const pn=$("#pgNum");if(!pn||!PG)return;
   const c=BK.counts&&BK.sig===layoutSig()?BK.counts:null;
@@ -933,15 +984,20 @@ function updatePill(){
   const n=before!=null?before+PG.k+1:null;
   pn.textContent=(n!=null?n:"…")+" / "+(total!=null?total:"…");
   pn.setAttribute("aria-label",n!=null&&total!=null?"Page "+n+" of "+total:"Counting pages");
+  const tp=$("#tsp");if(tp){const f=PG.anchor||firstAyahOnPage(PG.k);tp.textContent="Page "+(n!=null?n:"…")+" / "+(total!=null?total:"…")+(f?" · Juz "+juzOf(G(f.s,f.a)):"");}
   const sp=$("#spine");if(sp)sp.className="spine "+((n!=null?n:PG.k+1)%2?"l":"r");
 }
 
 /* ---------- page mode (reads like a mushaf: swipe to turn pages) ---------- */
 let PG=null,swipeAt=0;
 // Give headings and markers a height that is a whole number of lines, so text sits on the ruled lines.
-function snapBlocks(R){const lh=lhPx();
+function snapBlocks(R,lh0){const lh=lh0||lhPx();
   R.querySelectorAll(".cartouche,.listen,.bism,.endnav").forEach(el=>{el.style.height="";const h=el.getBoundingClientRect().height;el.style.height=Math.max(1,Math.ceil((h-1)/lh))*lh+"px";});}
-function pageOfRect(r){return Math.max(0,Math.floor((PG.pr-(r.right-PG.k*PG.step)+2)/PG.step));}
+// Positions are measured against where the pages actually are — also while a page turn is still animating.
+// measured once per update (asking the browser for it hundreds of times would slow long surahs and delay the recitation)
+let _tx=null;
+function pageTX(){if(_tx!==null)return _tx;const R=$("#reader");if(!R)return 0;const m=getComputedStyle(R).transform;_tx=m&&m!=="none"?new DOMMatrixReadOnly(m).m41:0;queueMicrotask(()=>{_tx=null;});return _tx;}
+function pageOfRect(r){return Math.max(0,Math.floor((PG.pr-(r.right-pageTX())+2)/PG.step));}
 function pageOfAyah(a){const el=document.getElementById("a"+a);if(!el||!PG)return 0;const r=el.getClientRects()[0];return r?pageOfRect(r):0;}
 function firstAyahOnPage(k){let cont=null;
   for(const el of document.querySelectorAll("#reader .ay")){const rs=el.getClientRects();if(!rs.length)continue;
@@ -952,20 +1008,25 @@ function firstAyahOnPage(k){let cont=null;
 function layoutPages(anchor,flash){
   const P=$("#pager"),R=$("#reader"),B=$("#pgNum");if(!P||!R)return;window.scrollTo(0,0);
   const lh=lhPx();document.documentElement.style.setProperty("--lhpx",lh+"px");
-  R.style.transition="none";R.style.transform="none";R.style.columnWidth="";R.style.height="";
-  const frame=0;
+  R.style.transition="none";R.style.transform="none";R.style.columnWidth="";R.style.height="";_tx=null;
+  const pcs=getComputedStyle(P),px=v=>parseFloat(v)||0;
+  const frame=px(pcs.borderTopWidth)+px(pcs.borderBottomWidth)+px(pcs.paddingTop)+px(pcs.paddingBottom),fR=px(pcs.borderRightWidth)+px(pcs.paddingRight);
+  const land=LAND();
   const nav=$("nav.tabs"),navOn=getComputedStyle(nav).display!=="none"&&!matchMedia("(min-width:1100px)").matches;
   const bottomUI=(navOn?nav.getBoundingClientRect().height:0)
     +(document.body.classList.contains("has-player")?$("#player").getBoundingClientRect().height:0)+(document.body.classList.contains("focus")?parseFloat(getComputedStyle(document.documentElement).paddingBottom)||0:0);
-  const avail=Math.round(innerHeight-P.getBoundingClientRect().top-52-bottomUI-4); // fixed room for the page-number pill: same settings → same pages
-  const H=Math.max(lh*3,Math.floor(avail/lh)*lh);
+  const avail=Math.round(innerHeight-P.getBoundingClientRect().top-(land?26:52)-bottomUI-4-frame); // fixed room for page number / next-page word: same settings → same pages
+  // Landscape: share the leftover height between the lines (at most 25% more spacing) so no empty band is left under the text.
+  let lhE=lh;if(land){const n=Math.max(1,Math.floor(avail/lh));lhE=Math.max(lh,Math.min(Math.floor(avail/n),Math.round(lh*1.25)));}
+  R.style.setProperty("--lhpx",lhE+"px");
+  const H=Math.max(lhE*(land?1:3),Math.floor(avail/lhE)*lhE);
   P.style.height=(H+frame)+"px";R.style.height=H+"px";
   const cs=getComputedStyle(R);const pl=parseFloat(cs.paddingLeft)||0,pr=parseFloat(cs.paddingRight)||0;
   const colW=Math.floor(R.clientWidth-pl-pr),gap=Math.round(pl+pr);
   R.style.columnWidth=colW+"px";R.style.columnGap=gap+"px";
-  snapBlocks(R);
+  snapBlocks(R,lhE);
   const pRect=P.getBoundingClientRect();
-  PG={k:0,step:colW+gap,pr:pRect.right-(frame/2)-pr,total:1,since:Date.now()};
+  PG={k:0,step:colW+gap,pr:pRect.right-fR-pr,total:1,since:Date.now()};
   const last=R.lastElementChild,lr=last&&last.getClientRects();PG.total=lr&&lr.length?pageOfRect(lr[lr.length-1])+1:1;
   const k=anchor&&anchor.s===cur.s&&anchor.a>1?pageOfAyah(anchor.a):0;PG.anchor=anchor&&anchor.s===cur.s?{s:anchor.s,a:anchor.a}:null;goPage(k,false,true);
   bookPages();
@@ -975,8 +1036,8 @@ function goPage(k,anim,keepAnchor){
   if(!PG)return;k=Math.max(0,Math.min(PG.total-1,k));
   if(k!==PG.k)PG.since=Date.now();PG.k=k;
   const R=$("#reader");const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  R.style.transition=anim&&!reduce?"transform .3s cubic-bezier(.2,.7,.3,1)":"none";R.style.transform="translateX("+(k*PG.step)+"px)";
-  updatePill();
+  R.style.transition=anim&&!reduce?"transform .3s cubic-bezier(.2,.7,.3,1)":"none";R.style.transform="translateX("+(k*PG.step)+"px)";_tx=null;
+  updatePill();updateCatch();
   $("#pgPrev").disabled=k===0&&cur.s===1;$("#pgNext").disabled=k===PG.total-1&&cur.s===114;
   const pb=$("#prog");if(pb)pb.style.width=((k+1)/PG.total*100)+"%";
   // A page turn makes its first ayah the new anchor; a re-layout keeps the ayah that was asked for.
@@ -986,8 +1047,8 @@ function goPage(k,anim,keepAnchor){
 }
 function markPageRead(k){if(!PG||Date.now()-PG.since<2000)return;
   document.querySelectorAll("#reader .ay").forEach(el=>{const rs=el.getClientRects();if(rs.length&&[...rs].some(r=>pageOfRect(r)===k))markRead(+el.dataset.g);});}
-function nextPage(){if(!PG)return;if(PG.k<PG.total-1){markPageRead(PG.k);goPage(PG.k+1,true);}else if(cur.s<114){markPageRead(PG.k);openAt(cur.s+1,1);}else goPage(PG.k,true);}
-function prevPage(){if(!PG)return;if(PG.k>0)goPage(PG.k-1,true);else if(cur.s>1)openAt(cur.s-1,S[cur.s-2][4]);else goPage(0,true);}
+function nextPage(){if(!PG)return;followHold=Date.now()+8000;if(PG.k<PG.total-1){markPageRead(PG.k);goPage(PG.k+1,true);}else if(cur.s<114){markPageRead(PG.k);openAt(cur.s+1,1);}else goPage(PG.k,true);}
+function prevPage(){if(!PG)return;followHold=Date.now()+8000;if(PG.k>0)goPage(PG.k-1,true);else if(cur.s>1)openAt(cur.s-1,S[cur.s-2][4]);else goPage(0,true);}
 function bindPager(){
   const P=$("#pager");$("#pgNext").onclick=nextPage;$("#pgPrev").onclick=prevPage;
   let id=null,x0=0,y0=0,t0=0,drag=false;
@@ -1045,6 +1106,7 @@ let scT;
 function updProg(){const R=$("#reader");const pb=$("#prog");if(!R||!pb)return;const max=R.offsetTop+R.offsetHeight-innerHeight;pb.style.width=(max>0?Math.min(100,Math.max(0,scrollY/max*100)):100)+"%";}
 window.addEventListener("scroll",()=>{if(view!=="read"||PG||lockPos)return;updProg();clearTimeout(scT);scT=setTimeout(()=>{const t=topAyah();if(t&&(t.s!==st.last.s||t.a!==st.last.a)){st.last={s:t.s,a:t.a};$("#ts").textContent=subtitle(t.s,t.a);if(MP)$("#tt").textContent=sname(t.s)+" · "+t.s;try{history.replaceState(history.state,"","#s"+t.s+"-"+t.a);}catch(e){}void juzOf(G(t.s,t.a));dirty=true;}},250);},{passive:true});
 
+["wheel","touchmove"].forEach(ev=>addEventListener(ev,()=>{if(view==="read"&&!PG&&PL.st!=="idle")followHold=Date.now()+8000;},{passive:true}));
 let holdT=null,holdFired=false;
 function bindHold(R){
   R.addEventListener("pointerdown",e=>{const an=e.target.closest(".an");if(!an)return;holdFired=false;clearTimeout(holdT);
@@ -1131,35 +1193,57 @@ const recName=()=>(RECS.find(r=>r[0]===recId())||RECS[0])[1];
 const recURL=(s,a)=>"https://everyayah.com/data/"+recId()+"/"+pad3(s)+pad3(a)+".mp3";
 const PL={s:0,a:0,bism:false,rep:0,single:false,st:"idle"};
 let au=null,preAu=null;
-function audioEl(){
-  if(au)return au;au=new Audio();au.preload="auto";
-  au.addEventListener("playing",()=>setPS("playing"));
-  au.addEventListener("waiting",()=>{if(PL.st==="playing")setPS("loading");});
-  au.addEventListener("pause",()=>{if(!au.ended&&PL.st!=="error"&&PL.st!=="idle")setPS("paused");});
-  au.addEventListener("ended",advance);
-  au.addEventListener("error",()=>{if(PL.st!=="idle")setPS("error");});
-  return au;
+let followHold=0; // while the reader is turning pages by hand, the reader does not jump back to the recitation
+function wireAudio(el){
+  el.preload="auto";
+  el.addEventListener("playing",()=>{if(el===au){PL.retry=0;setPS("playing");}});
+  el.addEventListener("waiting",()=>{if(el===au&&PL.st==="playing")setPS("loading");});
+  el.addEventListener("pause",()=>{if(el===au&&!au.ended&&PL.st!=="error"&&PL.st!=="idle")setPS("paused");});
+  el.addEventListener("ended",()=>{if(el===au)advance();});
+  el.addEventListener("timeupdate",()=>{if(el===au)updSeek();});
+  el.addEventListener("error",()=>{if(el!==au||PL.st==="idle")return;
+    // a network hiccup: try the same ayah again before giving up, instead of ending the session
+    if((PL.retry||0)<2){PL.retry=(PL.retry||0)+1;setPS("loading");const tries=PL.retry;setTimeout(()=>{if(el===au&&PL.retry===tries&&PL.st==="loading"){try{el.load();}catch(e){}el.play().catch(()=>{});}},1200*tries);}
+    else setPS("error");});
 }
+function audioEl(){if(au)return au;au=new Audio();preAu=new Audio();wireAudio(au);wireAudio(preAu);return au;}
 function playAyahs(s,a,single){
   if(!AUDIO)return;try{speechSynthesis.cancel();}catch(e){}
-  PL.s=s;PL.a=a;PL.single=!!single;PL.rep=0;PL.bism=!single&&a===1&&s!==1&&s!==9;loadCur();
+  PL.s=s;PL.a=a;PL.single=!!single;PL.rep=0;PL.bism=!single&&a===1&&s!==1&&s!==9;followHold=0;loadCur();unlockPre();
 }
 function loadCur(){
-  const el=audioEl();el.src=PL.bism?recURL(1,1):recURL(PL.s,PL.a);el.playbackRate=+st.settings.rate||1;
+  const el=audioEl();PL.retry=0;el.src=PL.bism?recURL(1,1):recURL(PL.s,PL.a);el.playbackRate=+st.settings.rate||1;
   setPS("loading");el.play().catch(e=>{if(e&&e.name==="NotAllowedError")setPS("paused");else if(!(e&&e.name==="AbortError"))setPS("error");});
   preloadNext();markPlaying();mediaMeta();
 }
-function nextRef(){if(PL.bism)return [PL.s,PL.a];if(PL.a<S[PL.s-1][4])return [PL.s,PL.a+1];if(PL.s<114&&st.settings.autoNext)return [PL.s+1,1];return null;}
-function preloadNext(){const n=PL.single?null:nextRef();if(!n)return;if(!preAu){preAu=new Audio();preAu.preload="auto";}preAu.src=recURL(n[0],n[1]);}
+// iPhone only lets a player start by itself after it has been started once from a tap.
+function unlockPre(){if(PL.unlocked||!preAu||!preAu.src)return;PL.unlocked=true;
+  try{preAu.muted=true;const p=preAu.play();if(p)p.then(()=>{preAu.pause();preAu.currentTime=0;preAu.muted=false;}).catch(()=>{preAu.muted=false;PL.unlocked=false;});}catch(e){preAu.muted=false;}}
+// What plays after the current recording ends — the same order as before: Bismillah, repeats, next ayah, next surah.
+function nextState(){
+  if(PL.bism)return {s:PL.s,a:PL.a,bism:false,rep:0};
+  const reps=+st.settings.repeat||1;if(PL.rep+1<reps)return {s:PL.s,a:PL.a,bism:false,rep:PL.rep+1};
+  if(PL.single)return null;
+  if(PL.a<S[PL.s-1][4])return {s:PL.s,a:PL.a+1,bism:false,rep:0};
+  if(st.settings.autoNext&&PL.s<114){const s=PL.s+1;return {s,a:1,bism:s!==9,rep:0};}
+  return null;
+}
+const urlOf=n=>n.bism?recURL(1,1):recURL(n.s,n.a);
+function nextRef(){const n=nextState();return n?[n.s,n.a]:null;}
+// Load the next recording into the second player while the current one is still playing.
+function preloadNext(){audioEl();PL.pre=null;const n=nextState();if(!n)return;const u=urlOf(n);
+  if(preAu.src!==u){preAu.src=u;try{preAu.load();}catch(e){}}PL.pre=u;}
 function advance(){
-  if(PL.bism){PL.bism=false;return loadCur();}
-  const reps=+st.settings.repeat||1;if(PL.rep+1<reps){PL.rep++;return loadCur();}
-  PL.rep=0;
-  if(PL.single){setPS("done");return;}
-  if(PL.a<S[PL.s-1][4]){PL.a++;return loadCur();}
-  if(st.settings.autoNext&&PL.s<114){const was=PL.s;PL.s++;PL.a=1;PL.bism=PL.s!==9;
-    if(view==="read"&&cur.s===was&&st.settings.follow)openAt(PL.s,1);return loadCur();}
-  setPS("done");
+  const n=nextState();if(!n){setPS("done");return;}
+  const was=PL.s;PL.s=n.s;PL.a=n.a;PL.bism=n.bism;PL.rep=n.rep;
+  // turn to the next surah only after its audio has started, so laying out the pages never delays the recitation
+  if(n.s!==was&&view==="read"&&cur.s===was&&st.settings.follow&&Date.now()>followHold)setTimeout(()=>{if(PL.s===n.s)openAt(PL.s,1);},60);
+  const u=urlOf(n);
+  if(PL.pre===u&&preAu&&preAu.readyState>=2){ // already loaded: start it immediately — no gap, no overlap, nothing cut
+    const old=au;au=preAu;preAu=old;PL.retry=0;au.playbackRate=+st.settings.rate||1;try{au.currentTime=0;}catch(e){}
+    au.play().catch(()=>loadCur());preloadNext();
+    setTimeout(()=>{markPlaying();setPS(au.paused?"loading":"playing");mediaMeta();},40); // highlight just after the audio has started, so drawing never delays it
+  }else loadCur();
 }
 function stepA(d){if(!PL.s)return;PL.bism=false;PL.rep=0;PL.single=false;
   if(d>0){if(PL.a<S[PL.s-1][4])PL.a++;else if(PL.s<114){PL.s++;PL.a=1;}else return;}
@@ -1169,8 +1253,10 @@ function togglePlay(){const el=audioEl();
   if(PL.st==="playing"||PL.st==="loading")el.pause();
   else if(PL.st==="error"||PL.st==="done"){PL.rep=0;loadCur();}
   else el.play().catch(()=>setPS("error"));}
-function stopAudio(){if(au){au.pause();au.removeAttribute("src");try{au.load();}catch(e){}}PL.st="idle";PL.s=0;renderPlayer();markPlaying();
+function stopAudio(){if(preAu){preAu.pause();}if(au){au.pause();au.removeAttribute("src");try{au.load();}catch(e){}}PL.st="idle";PL.s=0;renderPlayer();markPlaying();
   if("mediaSession" in navigator)navigator.mediaSession.playbackState="none";}
+let seekDrag=false;
+function updSeek(){const s=$("#pseek");if(s&&au&&au.duration&&!seekDrag)s.value=Math.round(au.currentTime/au.duration*1000);}
 function setPS(x){PL.st=x;renderPlayer();if("mediaSession" in navigator)navigator.mediaSession.playbackState=x==="playing"?"playing":x==="paused"?"paused":"none";}
 function renderPlayer(){
   const P=$("#player");if(!P)return;const on=AUDIO&&PL.st!=="idle";
@@ -1183,12 +1269,14 @@ function renderPlayer(){
   const label=PL.bism?"Bismillah · before "+sname(PL.s):sname(PL.s)+" "+PL.s+":"+PL.a;
   const icon=PL.st==="loading"?'<span class="spin" aria-hidden="true"></span>':PL.st==="playing"?'<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>':'<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>';
   P.classList.toggle("err",PL.st==="error");
-  P.innerHTML='<button class="pinfo" id="pgo" aria-label="Show '+esc(label)+' in the reader"><b>'+esc(label)+'</b><small>'+esc(msg)+'</small></button>'
+  P.innerHTML='<input type="range" class="pseek" id="pseek" min="0" max="1000" value="0" aria-label="Position in this ayah">'
+   +'<button class="pinfo" id="pgo" aria-label="Show '+esc(label)+' in the reader"><b>'+esc(label)+'</b><small>'+esc(msg)+'</small></button>'
    +'<button class="ib" id="pprev" aria-label="Previous ayah"><svg viewBox="0 0 24 24"><path d="M6 5v14M18 5l-9 7 9 7z"/></svg></button>'
    +'<button class="ib pp" id="ppp" aria-label="'+(PL.st==="playing"||PL.st==="loading"?"Pause":"Play")+'">'+icon+'</button>'
    +'<button class="ib" id="pnext" aria-label="Next ayah"><svg viewBox="0 0 24 24"><path d="M18 5v14M6 5l9 7-9 7z"/></svg></button>'
    +'<button class="ib" id="pstop" aria-label="Close player"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
-  $("#pgo").onclick=()=>{if(PL.s)openAt(PL.s,PL.a);};$("#ppp").onclick=togglePlay;$("#pprev").onclick=()=>stepA(-1);$("#pnext").onclick=()=>stepA(1);$("#pstop").onclick=stopAudio;
+  $("#pgo").onclick=()=>{followHold=0;if(PL.s)openAt(PL.s,PL.a);};
+  const sk=$("#pseek");sk.oninput=()=>{seekDrag=true;};sk.onchange=()=>{seekDrag=false;if(au&&au.duration)au.currentTime=sk.value/1000*au.duration;};updSeek();$("#ppp").onclick=togglePlay;$("#pprev").onclick=()=>stepA(-1);$("#pnext").onclick=()=>stepA(1);$("#pstop").onclick=stopAudio;
 }
 function markPlaying(noScroll){
   document.querySelectorAll(".ay.playing").forEach(x=>x.classList.remove("playing"));
@@ -1196,7 +1284,7 @@ function markPlaying(noScroll){
   const el=ayEl(PL.s,PL.a);
   if(!el){if(MP&&!noScroll&&st.settings.follow)renderMushafPage(PL.s,PL.a,{dir:1,quiet:true});return;}
   el.classList.add("playing");
-  if(noScroll||!st.settings.follow)return;
+  if(noScroll||!st.settings.follow||Date.now()<followHold)return;
   if(PG&&$("#pager")){const p=pageOfAyah(PL.a);const rs=[...el.getClientRects()];if(!rs.some(r=>pageOfRect(r)===PG.k))goPage(p,true);return;}
   const r=el.getBoundingClientRect(),top=70,bot=innerHeight-(document.body.classList.contains("has-player")?140:80);
   if(r.top<top||r.bottom>bot){const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1206,7 +1294,8 @@ function mediaMeta(){
   if(!("mediaSession" in navigator))return;
   try{navigator.mediaSession.metadata=new MediaMetadata({title:PL.bism?"Bismillah":sname(PL.s)+" "+PL.s+":"+PL.a,artist:recName(),album:"Yours Quran Reader",artwork:[{src:"icons/icon-512.png",sizes:"512x512",type:"image/png"}]});
     navigator.mediaSession.setActionHandler("play",togglePlay);navigator.mediaSession.setActionHandler("pause",togglePlay);
-    navigator.mediaSession.setActionHandler("previoustrack",()=>stepA(-1));navigator.mediaSession.setActionHandler("nexttrack",()=>stepA(1));}catch(e){}
+    navigator.mediaSession.setActionHandler("previoustrack",()=>stepA(-1));navigator.mediaSession.setActionHandler("nexttrack",()=>stepA(1));
+    try{navigator.mediaSession.setActionHandler("seekto",d=>{if(au&&d&&d.seekTime!=null)au.currentTime=d.seekTime;});}catch(e){}}catch(e){}
 }
 
 const COLORS=["#B32F25","#A87A22","#24766F","#1F3A6B","#7A4FA0"];
@@ -1239,6 +1328,7 @@ function openSettings(){
    +'<div class="field" style="margin-bottom:0"><label for="fs">Arabic text size</label><b id="fsv">'+x.qsize+'</b></div><input type="range" id="fs" min="20" max="96" step="2" value="'+x.qsize+'">'
    +'<div class="mushaf" id="fprev" lang="ar" style="text-align:center;text-align-last:center;margin:6px 0 12px">'+esc(V[0][1][0])+'</div>'
    +'<p class="sublabel">Reading</p>'+seg("segMode",[["page","Pages (swipe)"],["scroll","Scroll"]],PAGED()?"page":"scroll")
+   +'<div class="field"><label for="ms">Mushaf style (a traditional printed page)</label><input type="checkbox" id="ms" '+(x.mushafStyle?"checked":"")+'></div>'
    +'<p class="sublabel">Letter weight</p>'+seg("segWt",[["regular","Regular"],["bold","Bold"]],x.weight==="bold"?"bold":"regular")
    +'<p class="sublabel">Script</p>'+seg("segScript",[["indopak","IndoPak"],["uthmani","Madani (Uthmani)"]],x.script==="uthmani"?"uthmani":"indopak")
    +'<p class="sublabel">Line spacing</p>'+seg("segLh",[["tight","Compact"],["normal","Comfortable"],["relaxed","Relaxed"]],x.lh||"normal")
@@ -1271,6 +1361,7 @@ function openSettings(){
      bindSeg("segScript",v=>{x.script=v;applySettings();const fp=sh.querySelector("#fprev");if(loaded[v==="uthmani"?"uth":"ip"])fp.textContent=V[0][1][0];rerender();});
      bindSeg("segLh",v=>{x.lh=v;applySettings();rerender();});
      bindSeg("segMode",v=>{x.mode=v;rerender();});
+     sh.querySelector("#ms").onchange=e=>{x.mushafStyle=e.target.checked;applyMushafStyle();rerender();};
      bindSeg("segWt",v=>{x.weight=v;applySettings();save();});
      bindSeg("segLang",v=>{x.trans=v;rerender();});
      sh.querySelector("#sm").onchange=e=>{x.showTrans=e.target.checked;rerender();};
@@ -1617,7 +1708,7 @@ function installSheet(){
 function renderAbout(){
   $("#main").innerHTML='<div class="view today prose">'
    +'<p>The Arabic text is shown exactly as published by the sources below, with every diacritic and stop sign kept. Translations are translations of the meaning and are always labelled as such. This app adds no commentary of its own to the Quran.</p>'
-   +'<h2>Quran text</h2><p><b>IndoPak script:</b> DigitalKhatt IndoPak text and font by Amine Anane, published by QUL (Tarteel).<br><b>Madani (Uthmani) script:</b> The Noble Qur’an Encyclopedia (quranenc.com).</p>'
+   +'<h2>Quran text</h2><p><b>IndoPak script:</b> DigitalKhatt IndoPak text and font by Amine Anane, published by QUL (Tarteel).<br><b>Madani (Uthmani) script:</b> the King Fahd Glorious Qur’an Printing Complex’s published Hafs text (Uthmanic Hafs, version 18), shown exactly as published apart from the ayah number, which the app draws itself. The Complex’s developer data does not include IndoPak text.</p>'
    +'<h2>Translations</h2><p><b>English:</b> Saheeh International.<br><b>Urdu:</b> Fateh Muhammad Jalandhari (public domain), digitised by the JustQuran project and checked against the printed edition.<br><b>Transliteration:</b> Tanzil Project.</p>'
    +'<h2>Word by word</h2><p>Word meanings, word pronunciation and word audio come from Quran.com. They are shown only where the words line up exactly with this text; for 5 ayahs they don’t, and only the ayah meaning is shown there.</p>'
    +'<h2>Structure</h2><p>Juz, page (604-page Madani mushaf), ruku, hizb and sajdah positions: the quran-meta project (Hafs). Juz boundaries and sajdah ayahs were cross-checked against a second source.</p>'
@@ -1669,6 +1760,8 @@ function markSide(){const sd=$("#side");if(!sd)return;sd.querySelectorAll("[data
 buildSide();
 
 /* start */
+function applyMushafStyle(){document.body.classList.toggle("mmode",!!st.settings.mushafStyle);}
+applyMushafStyle();
 if(!location.hash)history.replaceState(null,"","#read");
 setNavH();
 route();
